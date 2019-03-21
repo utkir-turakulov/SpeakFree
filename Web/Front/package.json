@@ -1,0 +1,14 @@
+{
+  "name": "SpeakFree.Front",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "roadhog server",
+    "build": "roadhog build",
+    "lint": "eslint --ext .js src test",
+    "precommit": "npm run lint",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check"
+  },
+  "dependencies": {
+  }
+}

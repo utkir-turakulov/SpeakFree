@@ -1,0 +1,17 @@
+.vs/*
+SpeakFree.API/obj/Debug/*
+SpeakFree.API/obj/*
+SpeakFree.API/obj/Release/*
+SpeakFree.API/bin/*
+
+SpeakFree.BLL/obj/Debug/*
+SpeakFree.BLL/obj/*
+SpeakFree.BLL/obj/Release/*
+SpeakFree.BLL/bin/*
+
+SpeakFree.DAL/obj/Debug/*
+SpeakFree.DAL/obj/*
+SpeakFree.DAL/obj/Release/*
+SpeakFree.DAL/bin/*
+
+Web/.idea/*
