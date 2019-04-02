@@ -7,5 +7,9 @@
     public interface IUnitOfWork: IDisposable
     {
         IRepository<User> Users { get; set; }
+
+        IRepository<Message> Messages { get; set; }
+
+        void Save();
     }
 }
