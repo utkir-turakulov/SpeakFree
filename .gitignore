@@ -14,4 +14,9 @@ SpeakFree.DAL/obj/*
 SpeakFree.DAL/obj/Release/*
 SpeakFree.DAL/bin/*
 
+SpeakFree.Common/obj/Debug/*
+SpeakFree.Common/obj/*
+SpeakFree.Common/obj/Release/*
+SpeakFree.Common/bin/*
+
 Web/.idea/*
