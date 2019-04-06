@@ -3,6 +3,7 @@
     using System;
     using System.Collections;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public interface IRepository<T> where T: class
     {
@@ -12,10 +13,10 @@
 
         IEnumerable<T> Find(Func<T, Boolean> predicacte);
 
-        void Create(T item);
+        Task Create(T item);
 
-        void Update(T item);
+        Task Update(T item);
 
-        void Delete(T item);
+        Task Delete(T item);
     }
 }
