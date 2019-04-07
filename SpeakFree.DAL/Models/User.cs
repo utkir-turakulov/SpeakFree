@@ -1,12 +1,17 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SpeakFree.DAL.Models
 {
-    public class User: IdentityUser
+	public class User: IdentityUser
     {
+	    /// <summary>
+	    /// Отчество
+	    /// </summary>
+	    public string Patronymic { get; set; }
 
-    }
+	    /// <summary>
+	    /// Фамилия
+	    /// </summary>
+	    public string Surename { get; set; }
+	}
 }

@@ -10,7 +10,8 @@
     {
         public DbSet<Message> Messages { get; set; }
 
-        public SpeakFreeDataContext()
+		public SpeakFreeDataContext(DbContextOptions<SpeakFreeDataContext> options)
+	        :base(options)
         {
             this.Database.EnsureCreated();
         }

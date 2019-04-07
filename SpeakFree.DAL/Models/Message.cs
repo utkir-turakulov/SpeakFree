@@ -27,11 +27,22 @@ namespace SpeakFree.DAL.Models
         /// <summary>
         /// Дата создания
         /// </summary>
-        public DateTime DateTime { get; set; }
+        public DateTime CreatedAt { get; set; }
 
-        /// <summary>
-        /// Автор сообщения 
-        /// </summary>
+		/// <summary>
+		/// Дата удаления
+		/// </summary>
+		public DateTime DeletedAt { get; set; }
+
+		/// <summary>
+		/// Тип сообщения
+		/// </summary>
+		public MessageType Type { get; set; }
+
+		/// <summary>
+		/// Автор сообщения 
+		/// </summary>
+		public long? AuthorId { get; set; }		
         public User Author { get; set; }
     }
 }
