@@ -40,7 +40,9 @@ namespace SpeakFree.DAL.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Patronymic = table.Column<string>(nullable: true),
+                    Surename = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -93,8 +95,8 @@ namespace SpeakFree.DAL.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -138,8 +140,8 @@ namespace SpeakFree.DAL.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -161,15 +163,18 @@ namespace SpeakFree.DAL.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Text = table.Column<string>(nullable: true),
                     IsAnonymous = table.Column<bool>(nullable: false),
-                    DateTime = table.Column<DateTime>(nullable: false),
-                    AuthorId = table.Column<string>(nullable: true)
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    DeletedAt = table.Column<DateTime>(nullable: false),
+                    Type = table.Column<int>(nullable: false),
+                    AuthorId = table.Column<long>(nullable: true),
+                    AuthorId1 = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Messages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Messages_AspNetUsers_AuthorId",
-                        column: x => x.AuthorId,
+                        name: "FK_Messages_AspNetUsers_AuthorId1",
+                        column: x => x.AuthorId1,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -215,9 +220,9 @@ namespace SpeakFree.DAL.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_AuthorId",
+                name: "IX_Messages_AuthorId1",
                 table: "Messages",
-                column: "AuthorId");
+                column: "AuthorId1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

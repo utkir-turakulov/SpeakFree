@@ -27,6 +27,6 @@ namespace SpeakFree.BLL.Dto.Message
 		public DateTime DeletedAt { get; set; }
 
 		[DataMember]
-		public long? AuthorId { get; set; }
+		public string AuthorId { get; set; }
     }
 }

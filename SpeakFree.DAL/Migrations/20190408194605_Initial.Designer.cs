@@ -10,8 +10,8 @@ using SpeakFree.DAL.Context;
 namespace SpeakFree.DAL.Migrations
 {
     [DbContext(typeof(SpeakFreeDataContext))]
-    [Migration("20190407140836_Message_Changes")]
-    partial class Message_Changes
+    [Migration("20190408194605_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -87,11 +87,9 @@ namespace SpeakFree.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                    b.Property<string>("ProviderKey");
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -122,11 +120,9 @@ namespace SpeakFree.DAL.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Value");
 
@@ -189,11 +185,15 @@ namespace SpeakFree.DAL.Migrations
 
                     b.Property<string>("PasswordHash");
 
+                    b.Property<string>("Patronymic");
+
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("Surename");
 
                     b.Property<bool>("TwoFactorEnabled");
 

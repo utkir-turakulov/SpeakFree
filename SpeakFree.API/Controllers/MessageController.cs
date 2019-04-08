@@ -63,12 +63,16 @@ namespace SpeakFree.API.Controllers
 		/// </summary>
 		/// <param name="value"></param>
         // POST api/<controller>
-        [HttpPost]
-        public async Task Post([FromBody]MessageDto value)
+        [HttpPost("Create")]
+        public async Task Create([FromBody]MessageDto value)
 		{
 			if (value != null)
 			{
-				User user = await this._userManager.FindByIdAsync(value.AuthorId.ToString());
+				User user = null;
+				if (!value.IsAnonymous)
+				{
+					user = await this._userManager.FindByIdAsync(value.AuthorId.ToString());
+				}
 
 				Message message = new Message()
 					                  {

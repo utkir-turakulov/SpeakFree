@@ -29,8 +29,8 @@ namespace SpeakFree.API.Controllers
 		/// </summary>
 		/// <param name="model"></param>
 		// POST api/<controller>
-		[HttpPost]
-		public async Task Login([FromBody]LoginDto model)
+		[HttpPost("/Login")]
+		public async Task<IActionResult> Login([FromBody]LoginDto model)
 		{
 			if (ModelState.IsValid)
 			{
@@ -38,28 +38,28 @@ namespace SpeakFree.API.Controllers
 
 				if (result.Succeeded)
 				{
-					/*return Json(new
+					return Json(new
 					{
 						Result = "Loged In"
 					}
-					);*/
+					);
 				}
 			}
 
-			//return  Json(new {Result = "Failed"});
+			return  Json(new {Result = "Failed"});
 		}
 
 		/// <summary>
 		/// Разлогиниться
 		/// </summary>
 		/// <returns></returns>
-		[HttpPost]
+		[HttpPost("/Logout")]
 		[ValidateAntiForgeryToken]
-		public async Task LogOut()
+		public async Task<IActionResult> LogOut()
 		{
 			// удаляем аутентификационные куки
 			await _signInManager.SignOutAsync();
-			//return RedirectToAction("Login", "Account");
+			return RedirectToAction("Login", "Account");
 		}
 
 		/// <summary>
@@ -68,10 +68,10 @@ namespace SpeakFree.API.Controllers
 		/// <param name="id"></param>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		[HttpPost("{id}")]
-		public void EditUser(long id, [FromBody]RegistrationDto model)
+		[HttpPost("/Edit/{id}")]
+		public async Task<IActionResult> EditUser(long id, [FromBody]RegistrationDto model)
 		{
-			//return Json(new { Result = "Not Implemented" });
+			return  Json(new { Result = "Not Implemented" });
 		}
 
 		/// <summary>
@@ -79,8 +79,8 @@ namespace SpeakFree.API.Controllers
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		[HttpPost]
-		public async Task Register([FromBody] RegistrationDto model)
+		[HttpPost("/Register")]
+		public async Task<IActionResult> Register([FromBody] RegistrationDto model)
 		{
 			if (ModelState.IsValid)
 			{
@@ -96,7 +96,7 @@ namespace SpeakFree.API.Controllers
 
 				if (result.Succeeded)
 				{
-					//return Json(new { Result = "Registered" });
+					return Json(new { Result = "Registered" });
 				}
 				else
 				{
@@ -107,7 +107,7 @@ namespace SpeakFree.API.Controllers
 				}
 			}
 
-			//return Json(new { Result = "Failed" });
+			return Json(new { Result = "Failed" });
 		}
 	}
 }

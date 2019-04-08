@@ -85,11 +85,9 @@ namespace SpeakFree.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                    b.Property<string>("ProviderKey");
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -120,11 +118,9 @@ namespace SpeakFree.DAL.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Value");
 
@@ -139,9 +135,7 @@ namespace SpeakFree.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long?>("AuthorId");
-
-                    b.Property<string>("AuthorId1");
+                    b.Property<string>("AuthorId");
 
                     b.Property<DateTime>("CreatedAt");
 
@@ -155,7 +149,7 @@ namespace SpeakFree.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId1");
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("Messages");
                 });
@@ -187,11 +181,15 @@ namespace SpeakFree.DAL.Migrations
 
                     b.Property<string>("PasswordHash");
 
+                    b.Property<string>("Patronymic");
+
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("Surename");
 
                     b.Property<bool>("TwoFactorEnabled");
 
@@ -260,7 +258,7 @@ namespace SpeakFree.DAL.Migrations
                 {
                     b.HasOne("SpeakFree.DAL.Models.User", "Author")
                         .WithMany()
-                        .HasForeignKey("AuthorId1");
+                        .HasForeignKey("AuthorId");
                 });
 #pragma warning restore 612, 618
         }

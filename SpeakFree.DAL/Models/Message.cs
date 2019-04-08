@@ -42,7 +42,7 @@ namespace SpeakFree.DAL.Models
 		/// <summary>
 		/// Автор сообщения 
 		/// </summary>
-		public long? AuthorId { get; set; }		
+		public string AuthorId { get; set; }		
         public User Author { get; set; }
     }
 }

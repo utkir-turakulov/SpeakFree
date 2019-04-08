@@ -10,8 +10,8 @@ using SpeakFree.DAL.Context;
 namespace SpeakFree.DAL.Migrations
 {
     [DbContext(typeof(SpeakFreeDataContext))]
-    [Migration("20190407093650_Initial")]
-    partial class Initial
+    [Migration("20190408195919_MessageModelChanged")]
+    partial class MessageModelChanged
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -87,11 +87,9 @@ namespace SpeakFree.DAL.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("ProviderKey")
-                        .HasMaxLength(128);
+                    b.Property<string>("ProviderKey");
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -122,11 +120,9 @@ namespace SpeakFree.DAL.Migrations
                 {
                     b.Property<string>("UserId");
 
-                    b.Property<string>("LoginProvider")
-                        .HasMaxLength(128);
+                    b.Property<string>("LoginProvider");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(128);
+                    b.Property<string>("Name");
 
                     b.Property<string>("Value");
 
@@ -143,11 +139,15 @@ namespace SpeakFree.DAL.Migrations
 
                     b.Property<string>("AuthorId");
 
-                    b.Property<DateTime>("DateTime");
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<DateTime>("DeletedAt");
 
                     b.Property<bool>("IsAnonymous");
 
                     b.Property<string>("Text");
+
+                    b.Property<int>("Type");
 
                     b.HasKey("Id");
 
@@ -183,11 +183,15 @@ namespace SpeakFree.DAL.Migrations
 
                     b.Property<string>("PasswordHash");
 
+                    b.Property<string>("Patronymic");
+
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<string>("Surename");
 
                     b.Property<bool>("TwoFactorEnabled");
 
