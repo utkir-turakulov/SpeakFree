@@ -40,7 +40,7 @@ namespace SpeakFree.API.Controllers
 		/// </summary>
 		/// <returns></returns>
 		// GET: api/<controller>
-		[HttpGet]
+		[HttpGet("GetAll")]
         public async Task<IEnumerable<Message>> Get()
         {
             return await _messageOperationService.GetAll();
@@ -52,7 +52,7 @@ namespace SpeakFree.API.Controllers
 		/// <param name="id"></param>
 		/// <returns></returns>
         // GET api/<controller>/5
-        [HttpGet("{id}")]
+        [HttpGet("Get/{id}")]
         public async Task<Message> Get(int id)
         {
             return _messageOperationService.Get(id);
@@ -90,19 +90,25 @@ namespace SpeakFree.API.Controllers
 		/// </summary>
 		/// <param name="message"></param>
         // Post api/<controller>/5
-        [HttpPost("{id}")]
+        [HttpPost("Edit")]
         public async Task Edit([FromBody]MessageDto message)
         {
 	        if (message != null)
 	        {
-		        User user = await this._userManager.FindByIdAsync(message.AuthorId.ToString());
+		        User user = null;
+
+		        if (!message.IsAnonymous)
+		        {
+					user = await this._userManager.FindByIdAsync(message.AuthorId.ToString());
+				}
+			       
 				Message msg = _messageOperationService.Find(x => x.Id == message.Id).First();
 
 				msg.CreatedAt = message.CreatedAt;
 				msg.DeletedAt = message.DeletedAt;
 				msg.Author = user;
 				msg.IsAnonymous = message.IsAnonymous;
-				msg.Text = msg.Text;
+				msg.Text = message.Text;
 
 				await this._messageOperationService.Update(msg);
 	        }
@@ -113,8 +119,8 @@ namespace SpeakFree.API.Controllers
 		/// </summary>
 		/// <param name="id"></param>
         // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public async Task DeleteAsync(int? id)
+        [HttpDelete("Delete{id}")]
+        public async Task Delete(int? id)
         {
 	        if (id != null)
 	        {

@@ -47,6 +47,7 @@ namespace SpeakFree.DAL.Services.Implementation
 		public async Task Update(Message item)
 		{
 			this._context.Entry(item).State = EntityState.Modified;
+			await _context.SaveChangesAsync();
 		}
 	}
 }
