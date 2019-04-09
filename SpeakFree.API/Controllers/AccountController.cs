@@ -29,7 +29,7 @@ namespace SpeakFree.API.Controllers
 		/// </summary>
 		/// <param name="model"></param>
 		// POST api/<controller>
-		[HttpPost("/Login")]
+		[HttpPost("Login")]
 		public async Task<IActionResult> Login([FromBody]LoginDto model)
 		{
 			if (ModelState.IsValid)
@@ -53,7 +53,7 @@ namespace SpeakFree.API.Controllers
 		/// Разлогиниться
 		/// </summary>
 		/// <returns></returns>
-		[HttpPost("/Logout")]
+		[HttpPost("Logout")]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> LogOut()
 		{
@@ -68,7 +68,7 @@ namespace SpeakFree.API.Controllers
 		/// <param name="id"></param>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		[HttpPost("/Edit/{id}")]
+		[HttpPost("Edit/{id}")]
 		public async Task<IActionResult> EditUser(long id, [FromBody]RegistrationDto model)
 		{
 			return  Json(new { Result = "Not Implemented" });
@@ -79,7 +79,7 @@ namespace SpeakFree.API.Controllers
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		[HttpPost("/Register")]
+		[HttpPost("Register")]
 		public async Task<IActionResult> Register([FromBody] RegistrationDto model)
 		{
 			if (ModelState.IsValid)
