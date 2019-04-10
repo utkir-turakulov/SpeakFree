@@ -60,6 +60,9 @@ namespace SpeakFree.API
                 app.UseHsts();
             }
 
+
+            app.UseCors(); // Изучить !!!!!!
+
             app.UseSwagger();
             app.UseSwaggerUI(
 	            c =>
