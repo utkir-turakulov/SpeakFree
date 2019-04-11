@@ -29,6 +29,8 @@ namespace SpeakFree.DAL
 		    IConfiguration configuration)
 	    {
 		    services.AddScoped<IMessageDbService, MessageDbService>();
+		    services.AddScoped<IUserDbService, UserDbService>();
+
 		    services.AddDbContext<SpeakFreeDataContext>(
 			    option => option.UseSqlServer(configuration.GetConnectionString("SpeakFreeConnection")));
 

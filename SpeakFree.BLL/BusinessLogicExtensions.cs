@@ -6,6 +6,7 @@ namespace SpeakFree.BLL
 {
 	using Microsoft.Extensions.DependencyInjection;
 
+	using SpeakFree.BLL.Mapster;
 	using SpeakFree.BLL.Services;
 	using SpeakFree.BLL.Services.Implementation;
 
@@ -21,7 +22,9 @@ namespace SpeakFree.BLL
 		/// <returns>коллекция сервисов</returns>
 	    public static IServiceCollection AddLogicServicesCollection(this IServiceCollection services)
 	    {
-		    services.AddScoped<IMessageService, MessageOperationService>();
+		    MapperConfig.Configure();
+			services.AddScoped<IMessageService, MessageOperationService>();
+		    services.AddScoped<IUserOperationService, UserOperationService>();
 
 		    return services;
 	    }

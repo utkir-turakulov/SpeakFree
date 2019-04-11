@@ -11,6 +11,8 @@ namespace SpeakFree.API.Controllers
 {
 	using Microsoft.EntityFrameworkCore;
 
+	using SpeakFree.BLL.Services;
+
 	[Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -19,11 +21,15 @@ namespace SpeakFree.API.Controllers
 
 	    private SignInManager<User> _signInManager;
 
+	    private IUserOperationService _userOperationService;
+
 		public UserController(UserManager<User> userManager,
-	                          SignInManager<User> signInManager)
+	                          SignInManager<User> signInManager,
+	                          IUserOperationService userOperationService)
 		{
 			this._userManager = userManager;
 			this._signInManager = signInManager;
+			this._userOperationService = userOperationService;
 		}
 
 		/// <summary>
@@ -32,8 +38,8 @@ namespace SpeakFree.API.Controllers
 		/// <returns></returns>
 		[HttpGet("GetAll")]
 	    public async Task<IActionResult> GetAll()
-	    {
-			var users = await this._userManager.Users.ToListAsync();
+		{
+			var users = await this._userOperationService.GetAll();
 			return this.Ok(users);
 	    }
 
@@ -44,8 +50,8 @@ namespace SpeakFree.API.Controllers
 		/// <returns></returns>
 		[HttpGet("Get{id}")]
 	    public async Task<IActionResult> Get(string id)
-	    {
-		    var users = await this._userManager.Users.Where(x=> x.Id == id).ToListAsync();
+		{
+			var users = await this._userOperationService.Get(id);
 		    return this.Ok(users);
 		}
 
@@ -56,8 +62,8 @@ namespace SpeakFree.API.Controllers
 		/// <returns></returns>
 	    [HttpGet("GetByLogin/{login}")]
 	    public async Task<IActionResult> GetByLogin(string login)
-	    {
-		    var users = await this._userManager.Users.Where(x => x.Email == login).ToListAsync();
+		{
+			var users = await this._userOperationService.GetByLogin(login);
 		    return this.Ok(users);
 		}
     }

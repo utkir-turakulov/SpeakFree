@@ -74,8 +74,6 @@ namespace SpeakFree.API
             app.UseAuthentication();
 
             app.UseMvc();
-
-           
         }
     }
 }

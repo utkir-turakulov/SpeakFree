@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using SpeakFree.DAL.Models;
+using Mapster;
 
 namespace SpeakFree.BLL.Services.Implementation
 {
+	using SpeakFree.BLL.Dto.User;
 	using SpeakFree.DAL.Services;
 
 	public class UserOperationService : IUserOperationService
@@ -22,18 +24,21 @@ namespace SpeakFree.BLL.Services.Implementation
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		public Task<User> Get(string id)
+		public async Task<UserDto> Get(string id)
 		{
-			throw new NotImplementedException();
+			var user = (await _userDbService.Get(id)).Adapt<UserDto>();
+			return user;
 		}
 
 		/// <summary>
 		/// Получить всех пользователей
 		/// </summary>
 		/// <returns></returns>
-		public Task<IEnumerable<User>> GetAll()
+		public async Task<IEnumerable<UserDto>> GetAll()
 		{
-			throw new NotImplementedException();
+			var users = (await this._userDbService.GetAll()).Adapt<IEnumerable<UserDto>>();
+			
+			return users;
 		}
 
 		/// <summary>
@@ -41,9 +46,10 @@ namespace SpeakFree.BLL.Services.Implementation
 		/// </summary>
 		/// <param name="login"></param>
 		/// <returns></returns>
-		public Task<User> GetByLogin(string login)
+		public async Task<UserDto> GetByLogin(string login)
 		{
-			throw new NotImplementedException();
+			var user = (await _userDbService.GetByLogin(login)).Adapt<UserDto>();
+			return user;
 		}
 	}
 }

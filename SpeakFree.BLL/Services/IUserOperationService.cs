@@ -7,12 +7,14 @@ namespace SpeakFree.BLL.Services
 	using SpeakFree.DAL.Models;
 	using System.Threading.Tasks;
 
+	using SpeakFree.BLL.Dto.User;
+
 	public interface IUserOperationService
 	{
-		Task<User> Get(string id);
+		Task<UserDto> Get(string id);
 
-		Task<IEnumerable<User>> GetAll();
+		Task<IEnumerable<UserDto>> GetAll();
 
-		Task<User> GetByLogin(string login);
+		Task<UserDto> GetByLogin(string login);
 	}
 }
