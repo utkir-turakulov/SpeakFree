@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SpeakFree.BLL.Dto.Account;
@@ -8,6 +10,15 @@ using SpeakFree.DAL.Models;
 
 namespace SpeakFree.API.Controllers
 {
+	using System;
+	using System.IdentityModel.Tokens.Jwt;
+	using System.Linq;
+	using AuthOptions;
+
+	using Microsoft.IdentityModel.Tokens;
+
+	using SpeakFree.API.Services;
+
 	/// <summary>
 	/// Аккаунт контроллер
 	/// </summary>
@@ -18,10 +29,20 @@ namespace SpeakFree.API.Controllers
 		private readonly UserManager<User> _userManager;
 		private readonly SignInManager<User> _signInManager;
 
-		public AccountController(UserManager<User> userManager,SignInManager<User> signInManager)
+		private readonly RoleManager<User> _roleManager;
+
+		private readonly TokenService _tokenService;
+
+		public AccountController(
+			UserManager<User> userManager,
+		    SignInManager<User> signInManager, 
+			RoleManager<User> roleManager,
+			TokenService tokenService)
 		{
 			this._userManager = userManager;
 			this._signInManager = signInManager;
+			this._roleManager = roleManager;
+			this._tokenService = tokenService;
 		}
 
 		/// <summary>
@@ -109,5 +130,40 @@ namespace SpeakFree.API.Controllers
 
 			return Json(new { Result = "Failed" });
 		}
+
+
+		[HttpPost("api/Token")]
+		public async Task<IActionResult> Token([FromBody]LoginDto model)
+		{
+			var identity = await this._tokenService.GetIdentity(model.Email, model.Password);
+
+			if (identity == null)
+			{
+				return this.NotFound("Invalid login or password.");
+			}
+
+			var now = DateTime.Now;
+
+			//создаем JWT-токены
+
+			var jwt = new JwtSecurityToken(
+				issuer: AuthOptions.ISSUER,
+				audience: AuthOptions.AUDIENCE,
+				notBefore: now,
+				claims: identity.Claims,
+				expires: now.Add(new AuthOptions().LIFETIME),
+				signingCredentials: new SigningCredentials(
+					AuthOptions.GetSymmetricSecurityKey(),
+					SecurityAlgorithms.HmacSha256));
+			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+			var response = new
+				               {
+					               access_token = encodedJwt,
+					               username = identity.Name
+				               };
+			return this.Ok(response);
+		}
+		
+
 	}
 }

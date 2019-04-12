@@ -9,12 +9,15 @@ namespace SpeakFree.API
 	using SpeakFree.BLL;
 	using SpeakFree.DAL;
 	using Swashbuckle.AspNetCore.Swagger;
-    using System;
-    using System.IO;
-	using System.Linq;
+	using System;
+	using System.IO;
 	using System.Reflection;
+	using Microsoft.AspNetCore.Authentication.JwtBearer;
+	using Microsoft.IdentityModel.Tokens;
+	using SpeakFree.API.Services;
+	using AuthOption = AuthOptions.AuthOptions;
 
-    public class Startup
+	public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -41,7 +44,33 @@ namespace SpeakFree.API
 						var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 						c.IncludeXmlComments(xmlPath);
 					});
+			
+			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+				options =>
+					{
+						// использование ssl при отправке токена
+						options.RequireHttpsMetadata = true;
+						options.TokenValidationParameters = new TokenValidationParameters
+						{
+							// укзывает, будет ли валидироваться издатель при валидации токена
+							ValidateIssuer = true,
+							// строка, представляющая издателя
+							ValidIssuer = AuthOption.ISSUER,
+							// будет ли валидироваться потребитель токена
+							ValidateAudience = true,
+							// установка потребителя токена
+							ValidAudience = AuthOption.AUDIENCE,
+							// будет ли валидироваться время существования
+							ValidateLifetime = true,
+ 
+							// установка ключа безопасности
+							IssuerSigningKey = AuthOption.GetSymmetricSecurityKey(),
+							// валидация ключа безопасности
+							ValidateIssuerSigningKey = true,
 
+						};
+					});
+			services.AddScoped<TokenService>();
 			services.AddDataAccessCollection(Configuration);
 			services.AddLogicServicesCollection();
 
