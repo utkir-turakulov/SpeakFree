@@ -29,14 +29,14 @@ namespace SpeakFree.API.Controllers
 		private readonly UserManager<User> _userManager;
 		private readonly SignInManager<User> _signInManager;
 
-		private readonly RoleManager<User> _roleManager;
+		private readonly RoleManager<IdentityRole> _roleManager;
 
 		private readonly TokenService _tokenService;
 
 		public AccountController(
 			UserManager<User> userManager,
 		    SignInManager<User> signInManager, 
-			RoleManager<User> roleManager,
+			RoleManager<IdentityRole> roleManager,
 			TokenService tokenService)
 		{
 			this._userManager = userManager;
@@ -107,8 +107,9 @@ namespace SpeakFree.API.Controllers
 			{
 				User user = new User()
 					            {
+									Name = model.Name,
 									Email = model.Email,
-									UserName = model.Name,
+									UserName = model.Email,
 									Surename = model.Surename,
 									Patronymic = model.Patronymic,
 					            };
@@ -132,7 +133,7 @@ namespace SpeakFree.API.Controllers
 		}
 
 
-		[HttpPost("api/Token")]
+		[HttpPost("Token")]
 		public async Task<IActionResult> Token([FromBody]LoginDto model)
 		{
 			var identity = await this._tokenService.GetIdentity(model.Email, model.Password);

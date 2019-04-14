@@ -43,6 +43,7 @@ namespace SpeakFree.DAL
 					    options.Password.RequireUppercase = false; // требуются ли символы в верхнем регистре
 					    options.Password.RequireDigit = false; // требуются ли цифры
 				    })
+			    .AddRoleManager<RoleManager<IdentityRole>>()
 			    .AddDefaultUI(UIFramework.Bootstrap4)
 			    .AddRoles<IdentityRole>()
 			    .AddEntityFrameworkStores<SpeakFreeDataContext>();

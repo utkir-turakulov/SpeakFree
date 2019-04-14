@@ -4,7 +4,13 @@ namespace SpeakFree.DAL.Models
 {
 	public class User: IdentityUser
     {
-	    /// <summary>
+
+		/// <summary>
+		/// Имя
+		/// </summary>
+		public string Name { get; set; }
+	    
+		/// <summary>
 	    /// Отчество
 	    /// </summary>
 	    public string Patronymic { get; set; }

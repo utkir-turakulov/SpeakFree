@@ -14,9 +14,9 @@ namespace SpeakFree.API.Services
 		private readonly UserManager<User> _userManager;
 		private readonly SignInManager<User> _signInManager;
 
-		private readonly RoleManager<User> _roleManager;
+		private readonly RoleManager<IdentityRole> _roleManager;
 
-		public TokenService(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<User> roleManager)
+		public TokenService(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole> roleManager)
 		{
 			this._userManager = userManager;
 			this._signInManager = signInManager;
