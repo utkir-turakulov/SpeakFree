@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using SpeakFree.DAL.Models
+    @inject SignInManager<User> SignInManager
+    @inject UserManager<User> UserManager
+
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li class="nav-item dropdown dropdown-user">
+                <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <i class="icon-user"></i>&nbsp;@User.Identity.Name
+            </a>
+    <div class="dropdown-menu dropdown-menu-right">
+        <a asp-area="" asp-controller="Account" asp-action="Settings" class="dropdown-item">
+            <i class="icon-cog5"></i>&nbsp;Настройки
+        </a>
+        <a asp-area="" asp-controller="Account" asp-action="Logout" class="dropdown-item">
+            <i class="icon-switch2"></i>&nbsp;Выход
+        </a>
+    </div>
+        </li>
+    }
+    else
+    {
+    <li class="nav-item">
+        <a class="nav-link text-light" asp-area="" asp-controller="Account" asp-action="Login"><i class="icon-key"></i>&nbsp;Вход</a>
+    </li>
+    }

@@ -15,6 +15,7 @@ namespace SpeakFree.API.Controllers
 	using System.Linq;
 	using AuthOptions;
 
+	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.IdentityModel.Tokens;
 
 	using SpeakFree.API.Services;
@@ -23,7 +24,7 @@ namespace SpeakFree.API.Controllers
 	/// Аккаунт контроллер
 	/// </summary>
 	[Produces("application/json")]  
-	[Route("api/[controller]")]
+	[Route("/[controller]")]
 	public class AccountController : Controller
 	{
 		private readonly UserManager<User> _userManager;
@@ -50,6 +51,7 @@ namespace SpeakFree.API.Controllers
 		/// </summary>
 		/// <param name="model"></param>
 		// POST api/<controller>
+		[AllowAnonymous]
 		[HttpPost("Login")]
 		public async Task<IActionResult> Login([FromBody]LoginDto model)
 		{
@@ -59,15 +61,32 @@ namespace SpeakFree.API.Controllers
 
 				if (result.Succeeded)
 				{
-					return Json(new
+					if (string.IsNullOrWhiteSpace(model.ReturnUrl))
+					{
+
+					}
+					else
+					{
+
+					}
+					/*return Json(new
 					{
 						Result = "Loged In"
 					}
-					);
+					);*/
+					return View(model.ReturnUrl);
 				}
 			}
 
 			return  Json(new {Result = "Failed"});
+		}
+
+		[AllowAnonymous]
+		[HttpGet("Login")]
+		public async Task<IActionResult> Login()
+		{
+			return View();
+
 		}
 
 		/// <summary>

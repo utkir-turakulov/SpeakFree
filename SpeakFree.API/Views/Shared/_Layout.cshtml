@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewData["Title"] - SmartERP</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
+    <link href="~/lib/limitless/global_assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+    <link href="~/lib/limitless/layout_1/LTR/default/full/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/lib/limitless/layout_1/LTR/default/full/assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
+    <link href="~/lib/limitless/layout_1/LTR/default/full/assets/css/layout.min.css" rel="stylesheet" type="text/css">
+    <link href="~/lib/limitless/layout_1/LTR/default/full/assets/css/components.min.css" rel="stylesheet" type="text/css">
+    <link href="~/lib/limitless/layout_1/LTR/default/full/assets/css/colors.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.fancytree/2.30.2/skin-awesome/ui.fancytree.css" />
+    <!-- /global stylesheets -->
+    <link href="~/lib/fontawesome/css/all.min.css" rel="stylesheet" />
+    <link href="~/css/thumbnail-slider.css" rel="stylesheet" />
+    <link href="~/css/ninja-slider.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <!-- Core JS files -->
+    <script src="~/lib/limitless/global_assets/js/main/jquery.min.js"></script>
+    <script src="~/lib/limitless/global_assets/js/main/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/limitless/global_assets/js/plugins/loaders/blockui.min.js"></script>
+    <!-- /core JS files -->
+    <!-- Theme JS files -->
+    <script src="~/lib/limitless/global_assets/js/plugins/extensions/jquery_ui/core.min.js"></script>
+    @*<script src="~/lib/limitless/global_assets/js/plugins/extensions/jquery_ui/effects.min.js"></script>*@
+    <script src="~/lib/limitless/global_assets/js/plugins/extensions/jquery_ui/interactions.min.js"></script>
+    <script src="~/lib/limitless/global_assets/js/plugins/ui/moment/moment.min.js"></script>
+    <script src="~/lib/limitless/global_assets/js/plugins/ui/moment/moment_locales.min.js"></script>
+
+    <script src="~/lib/limitless/global_assets/js/plugins/visualization/d3/d3.min.js"></script>
+    <script src="~/lib/limitless/global_assets/js/plugins/visualization/d3/d3_tooltip.js"></script>
+
+    <script src="~/lib/limitless/global_assets/js/plugins/forms/styling/switchery.min.js"></script>
+    <script src="~/lib/limitless/global_assets/js/plugins/forms/styling/switch.min.js"></script>
+    <script src="~/lib/limitless/global_assets/js/plugins/forms/styling/uniform.min.js"></script>
+    @*<script src="~/lib/limitless/global_assets/js/plugins/forms/selects/bootstrap_multiselect.js"></script>*@
+    <script src="~/lib/limitless/global_assets/js/plugins/pickers/daterangepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.fancytree/2.30.2/jquery.fancytree-all.min.js"></script>
+    <script src="~/lib/limitless/global_assets/js/plugins/media/fancybox.min.js"></script>
+    <script src="~/lib/limitless/global_assets/js/plugins/notifications/pnotify.min.js"></script>
+    <script src="~/lib/limitless/global_assets/js/plugins/tables/datatables/datatables.min.js"></script>
+    <script src="~/lib/limitless/global_assets/js/plugins/forms/selects/select2.min.js"></script>
+    <script src="~/lib/limitless/global_assets/js/plugins/uploaders/plupload/plupload.full.min.js"></script>
+    <script src="~/lib/limitless/global_assets/js/plugins/uploaders/plupload/plupload.queue.min.js"></script>
+    <script src="~/lib/limitless/global_assets/js/plugins/uploaders/plupload/i18n/ru.js"></script>
+
+    <script src="~/lib/limitless/layout_1/LTR/default/full/assets/js/app.js"></script>
+    <script src="~/lib/limitless/global_assets/js/demo_pages/components_collapsible.js"></script>
+    <script src="~/lib/limitless/global_assets/js/demo_pages/form_checkboxes_radios.js"></script>
+    <!-- /theme JS files -->
+    <script src="~/js/thumbnail-slider.js"></script>
+    <script src="~/js/ninja-slider.js"></script>
+    <script src="~/js/handbook.js" asp-append-version="true"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!--Самописные скрипты -->
+    <script src="~/js/action.js"></script>
+    <script src="~/js/tree.js" asp-append-version="true"></script>
+    <script src="~/js/celledit.js" asp-append-version="true"></script>
+</head>
+<body>
+<div class="navbar navbar-expand-md navbar-dark">
+    <div class="navbar-brand">
+        <a class="d-inline-block" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-home"></i>&nbsp;SpeakFree</a>
+    </div>
+    <div class="d-md-none">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
+            <i class="icon-tree5"></i>
+        </button>
+        <button class="navbar-toggler sidebar-mobile-main-toggle" type="button">
+            <i class="icon-paragraph-justify3"></i>
+        </button>
+    </div>
+    <!-- top nav-bar-->
+    <div class="collapse navbar-collapse" id="navbar-mobile">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a href="#" class="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block">
+                    <i class="icon-paragraph-justify3"></i>
+                </a>
+            </li>
+        </ul>
+        <span class="ml-md-3 mr-md-auto">&nbsp;</span>
+        <ul class="navbar-nav">
+            <partial name="_LoginPartial" />
+        </ul>
+    </div>
+    <!-- /top navbar-->
+</div>
+<!-- Page content-->
+<div class="page-content">
+    <!-- Main sidebar-->
+    <div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
+        <!-- Sidebar mobile toggler-->
+        <div class="sidebar-mobile-toggler text-center">
+            <a href="#" class="sidebar-mobile-main-toggle">
+                <i class="icon-arrow-left8"></i>
+            </a>
+            <span class="font-weight-semibold">Меню</span>
+            <a href="#" class="sidebar-mobile-expand">
+                <i class="icon-screen-full"></i>
+                <i class="icon-screen-normal"></i>
+            </a>
+        </div>
+        <!-- /sidebar mobile toggler-->
+        <div class="sidebar-content">
+            <partial name="_SidebarUser" />
+            <partial name="_SidebarMenu" />
+        </div>
+    </div>
+    <div class="content-wrapper">
+        <div class="page-header page-header-light">
+            <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
+                <div class="d-flex">
+                    <div class="breadcrumb">
+                        @await RenderSectionAsync("Breadcrumb", false)
+                    </div>
+                    <a href="#" class="header-elements-toggle text-default d-md-none">
+                        <i class="icon-more"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            @RenderBody()
+        </div>
+        <div class="navbar navbar-expand-lg navbar-light">
+            <div class="text-center d-lg-none w-100">
+                <button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-footer">
+                    <i class="icon-unfold mr-2"></i>
+                    Footer
+                </button>
+            </div>
+            <div class="navbar-collapse collapse" id="navbar-footer">
+                <span class="navbar-text">&copy;&nbsp;2019 - SmartERP</span>
+                <ul class="navbar-nav ml-lg-auto">
+                    <li class="nav-item">
+                        <a class="navbar-nav-link" asp-controller="Service" asp-action="Support">
+                            <i class="icon-lifebuoy mr-2"></i>
+                            Поддержка
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / page content-->
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

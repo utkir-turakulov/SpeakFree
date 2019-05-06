@@ -1,0 +1,176 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+.navbar-brand {
+    font-size: inherit;
+    padding-bottom: 0.8rem;
+    padding-top: 0.8rem;
+}
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+.tool-panel {
+    display: block;
+    position: absolute;
+    z-index: 1000;
+    float: left;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+#photo-tools {
+    left: 10px;
+    top: 0;
+}
+
+.overlay-panel {
+    z-index: 1010;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(255,255,255,1);
+    border: 1px gray solid;
+}
+
+.product-disabled {
+    color: firebrick;
+}
+
+.product-draft {
+    color: royalblue;
+}
+
+.product-hidden {
+    color: silver;
+}
+
+.select-editable input {
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    width: calc(100% - 40px);
+    border-right: none;
+}
+
+    .select-editable select:focus, .select-editable input:focus {
+        outline: none;
+    }
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.border-top {
+    border-top: 1px solid #e5e5e5;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+#edit {
+    padding: 1px;
+}
+
+td.editable {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+td.editable-cell {
+    padding-left: 1px;
+    !important;
+    padding-right: 1px;
+    !important;
+}
+
+#catalog-tree {
+    right: 15px;
+    left: 0px;
+    border: 1px solid rgba(0,0,0,.125);
+    !important;
+    padding-left: 0px;
+    padding-right:0px;
+}
+
+#catalog-tree  ul {
+    right: -9px;
+    left: 0px;
+    //padding-left: 0px;
+    //padding-right: 0px;
+}
+
+td.product-width {
+    max-width: 500px;
+    min-width: 200px;
+    line-height: 39px;
+}
+
+.product-regular > td {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+ul.fancytree-container {
+    padding-left: 0px;
+    border: none;
+    !important;
+}
+#products-table{
+    padding-left:0px;
+    padding-right:0px;
+    padding-bottom:1px;
+}
+
+.ui-fancytree{
+    padding-left:0px;
+    left:0px;
+}
+
+#product-list {
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.form-check{
+    padding-left:15px;
+}
+
+.charactName {
+     min-width: 100px;
+     padding-left:0px;!important;
+     padding-right:0px; !important
+}
+
+.content-align-middle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left:3px; !important;
+    padding-right:3px;!important;
+}
+
+.haracter-table {
+    width: 600px;
+    overflow: scroll;
+}

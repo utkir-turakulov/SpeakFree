@@ -77,32 +77,39 @@ namespace SpeakFree.API
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
-            }
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		{
+			if (env.IsDevelopment())
+			{
+				app.UseDeveloperExceptionPage();
+			}
+			else
+			{
+				app.UseExceptionHandler("/Home/Error");
+				app.UseHsts();
+			}
 
 
-            app.UseCors(); // Изучить !!!!!!
+			app.UseCors(); // Изучить !!!!!!
 
-            app.UseSwagger();
-            app.UseSwaggerUI(
-	            c =>
-		            {
-			            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Speak Free API");
-		            });
+			app.UseSwagger();
+			app.UseSwaggerUI(
+				c =>
+					{
+						c.SwaggerEndpoint("/swagger/v1/swagger.json", "Speak Free API");
+					});
 
 			app.UseHttpsRedirection();
-            app.UseAuthentication();
-
-            app.UseMvc();
-        }
+			app.UseAuthentication();
+			app.UseStaticFiles();
+			app.UseCookiePolicy();
+			app.UseMvc(routes =>
+				{
+					routes.MapRoute(
+					name: "default",
+					template: "{controller=Home}/{action=Index}/{id?}");
+				});
+		}
     }
 }

@@ -16,5 +16,7 @@
 		/// Запомнить меня
 		/// </summary>
 		public bool RememberMe { get; set; }
+
+		public string ReturnUrl { get; set; }
     }
 }

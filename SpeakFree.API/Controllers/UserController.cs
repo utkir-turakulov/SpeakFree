@@ -9,13 +9,15 @@ using SpeakFree.DAL.Models;
 
 namespace SpeakFree.API.Controllers
 {
+	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.EntityFrameworkCore;
 
 	using SpeakFree.BLL.Services;
 
-	[Route("api/[controller]")]
-    [ApiController]
-    public class UserController : ControllerBase
+	[Route("/[controller]")]
+   // [ApiController]
+	[Authorize]
+	public class UserController : ControllerBase
     {
 	    private UserManager<User> _userManager;
 
@@ -37,6 +39,7 @@ namespace SpeakFree.API.Controllers
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet("GetAll")]
+		[Authorize]
 	    public async Task<IActionResult> GetAll()
 		{
 			var users = await this._userOperationService.GetAll();

@@ -17,7 +17,7 @@ namespace SpeakFree.API.Controllers
 	/// <summary>
 	/// Сообщения
 	/// </summary>
-	[Route("api/[controller]")]
+	[Route("/[controller]")]
 	public class MessageController : Controller
 	{
 		private readonly IMessageService _messageOperationService;
