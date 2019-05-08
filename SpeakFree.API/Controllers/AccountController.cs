@@ -19,11 +19,13 @@ namespace SpeakFree.API.Controllers
 	using Microsoft.IdentityModel.Tokens;
 
 	using SpeakFree.API.Services;
+    using SpeakFree.BLL.Services;
+    using SpeakFree.BLL.Services.Implementation;
 
-	/// <summary>
-	/// Аккаунт контроллер
-	/// </summary>
-	[Produces("application/json")]  
+    /// <summary>
+    /// Аккаунт контроллер
+    /// </summary>
+    [Produces("application/json")]  
 	[Route("/[controller]")]
 	public class AccountController : Controller
 	{
@@ -34,16 +36,20 @@ namespace SpeakFree.API.Controllers
 
 		private readonly TokenService _tokenService;
 
+        private readonly IUserOperationService _userOperationService;
+
 		public AccountController(
 			UserManager<User> userManager,
 		    SignInManager<User> signInManager, 
 			RoleManager<IdentityRole> roleManager,
-			TokenService tokenService)
+			TokenService tokenService,
+            IUserOperationService userOperationService)
 		{
 			this._userManager = userManager;
 			this._signInManager = signInManager;
 			this._roleManager = roleManager;
 			this._tokenService = tokenService;
+            this._userOperationService = userOperationService;
 		}
 
 		/// <summary>
@@ -53,39 +59,61 @@ namespace SpeakFree.API.Controllers
 		// POST api/<controller>
 		[AllowAnonymous]
 		[HttpPost("Login")]
-		public async Task<IActionResult> Login([FromBody]LoginDto model)
+		public async Task<IActionResult> Login(LoginDto model)
 		{
 			if (ModelState.IsValid)
 			{
 				var result = await this._signInManager.PasswordSignInAsync(model.Email,model.Password,model.RememberMe,false);
+                var user = await (_userOperationService.GetByLogin(model.Email));
 
-				if (result.Succeeded)
-				{
-					if (string.IsNullOrWhiteSpace(model.ReturnUrl))
-					{
+                if (user != null)
+                {
+                    if (result.Succeeded)
+                    {
+                        if (string.IsNullOrWhiteSpace(model.ReturnUrl))
+                        {
+                            return RedirectToActionPermanent("Index", "Home");
+                        }
+                        else
+                        {
+                            return RedirectPermanent(model.ReturnUrl);                            
+                        }
+                    }
+                    else
+                    {
+                        if (result.IsLockedOut)
+                        {
+                            ModelState.AddModelError("", "Пользователь заблокирован");
+                        }
+                        else if (result.IsNotAllowed)
+                        {
+                            ModelState.AddModelError("", "Вход пользователю запрещён");
+                        }
+                        else
+                        {
+                            ModelState.AddModelError("", "Неверный пароль пользователя");
+                        }
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Неверное имя пользователя");
+                }
+            }
 
-					}
-					else
-					{
-
-					}
-					/*return Json(new
-					{
-						Result = "Loged In"
-					}
-					);*/
-					return View(model.ReturnUrl);
-				}
-			}
-
-			return  Json(new {Result = "Failed"});
-		}
+			return View(model);
+        }
 
 		[AllowAnonymous]
 		[HttpGet("Login")]
-		public async Task<IActionResult> Login()
+		public async Task<IActionResult> Login(string returnUrl)
 		{
-			return View();
+            LoginDto model = new LoginDto()
+            {
+                ReturnUrl = returnUrl
+            };
+
+            return View(model);
 
 		}
 
@@ -93,9 +121,9 @@ namespace SpeakFree.API.Controllers
 		/// Разлогиниться
 		/// </summary>
 		/// <returns></returns>
-		[HttpPost("Logout")]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> LogOut()
+		[HttpGet("Logout")]
+	//	[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Logout()
 		{
 			// удаляем аутентификационные куки
 			await _signInManager.SignOutAsync();
