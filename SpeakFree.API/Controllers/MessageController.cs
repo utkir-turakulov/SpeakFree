@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SpeakFree.API.Controllers
 {
+	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
 	using SpeakFree.BLL.Dto.Message;
 	using SpeakFree.BLL.Services;
@@ -17,6 +18,7 @@ namespace SpeakFree.API.Controllers
 	/// <summary>
 	/// Сообщения
 	/// </summary>
+	[Authorize]
 	[Route("/[controller]")]
 	public class MessageController : Controller
 	{
@@ -36,6 +38,12 @@ namespace SpeakFree.API.Controllers
 			this._signInManager = signInManager;
 			this._userOperationService = userOperationService;
 		}
+
+		public async Task<IActionResult> Index()
+		{
+			return View();
+		}
+
 
 		/// <summary>
 		/// Получить все
