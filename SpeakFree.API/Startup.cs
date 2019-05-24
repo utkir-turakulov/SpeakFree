@@ -106,7 +106,17 @@ namespace SpeakFree.API
 			app.UseCookiePolicy();
 			app.UseMvc(routes =>
 				{
-					routes.MapRoute(
+                    routes.MapRoute(
+                    name: "default_route",
+                    template: "{controller}/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "Index" });
+
+                    routes.MapRoute(
+                    name: "clean_route",
+                    template: "{controller}",
+                    defaults: new { controller = "Home", action = "Index" });
+
+                    routes.MapRoute(
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 				});

@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SpeakFree.API.Controllers
 {
+    [Route("/[controller]")]
     public class TaskBoardController : Controller
     {
         // GET: /<controller>/
+        [HttpGet("GetTasks")]
+        [Route("GetTasks")]
         public IActionResult Index()
         {
             return View();

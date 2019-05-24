@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SpeakFree.API.Controllers
 {
+    [Route("/[controller]")]
     public class SettingsController : Controller
     {
         // GET: /<controller>/
+        [HttpGet("GetSettings")]
+        [Route("GetSettings")]
         public IActionResult Index()
         {
             return View();

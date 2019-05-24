@@ -8,9 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SpeakFree.API.Controllers
 {
+    [Route("/[controller]")]
     public class ChatController : Controller
     {
         // GET: /<controller>/
+        [HttpGet("GetChat")]
+        [Route("Index")]
         public IActionResult Index()
         {
             return View();

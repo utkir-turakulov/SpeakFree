@@ -9,7 +9,11 @@ namespace SpeakFree.API.Controllers
 	[Route("/[controller]")]
 	public class HomeController: Controller
 	{
-		[HttpGet]
+		/// <summary>
+        /// Получить домашнюю страницу
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]        
 		public async Task<IActionResult> Index()
 		{
 			return View();

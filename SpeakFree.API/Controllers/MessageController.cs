@@ -138,5 +138,17 @@ namespace SpeakFree.API.Controllers
 				await this._messageOperationService.Delete(message);
 			}
 		}
+
+        /// <summary>
+        /// Страница отправки сообщения
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("Write")]
+        public async Task<IActionResult> Write()
+        {
+            return View();
+        }
+
+
 	}
 }
