@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <UserSecretsId>d182cd2d-ab87-40fb-b32e-da30ce601ac4</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -25,5 +26,9 @@
   <ItemGroup>
     <ProjectReference Include="..\SpeakFree.BLL\SpeakFree.BLL.csproj" />
   </ItemGroup>
+  
+  <PropertyGroup>
+  <GenerateDocumentationFile>true</GenerateDocumentationFile> 
+</PropertyGroup>
 
 </Project>
