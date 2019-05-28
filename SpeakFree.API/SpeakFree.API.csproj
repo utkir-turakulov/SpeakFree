@@ -26,4 +26,8 @@
     <ProjectReference Include="..\SpeakFree.BLL\SpeakFree.BLL.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+  <GenerateDocumentationFile>true</GenerateDocumentationFile> 
+	</PropertyGroup>
+
 </Project>
