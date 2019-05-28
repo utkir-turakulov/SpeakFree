@@ -14,7 +14,7 @@ namespace SpeakFree.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-		[Route("Index")]
+		//[Route("Index")]
 		 public async Task<IActionResult> Index()
 		{
 			return View();
