@@ -6,17 +6,18 @@ using System.Threading.Tasks;
 
 namespace SpeakFree.API.Controllers
 {
-	[Route("/[controller]")]
+[Route("/[controller]")]
 	public class HomeController: Controller
 	{
 		/// <summary>
         /// Получить домашнюю страницу
         /// </summary>
         /// <returns></returns>
-        [HttpGet]        
-		public async Task<IActionResult> Index()
+        [HttpGet]
+		[Route("Index")]
+		 public async Task<IActionResult> Index()
 		{
 			return View();
 		}
-    }
+}
 }
