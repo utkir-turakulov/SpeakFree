@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SpeakFree.DAL.Models
 {
-    /// <summary>
-    /// Модель сообщение
-    /// </summary>
-    public class Message
+	/// <summary>
+	/// Модель сообщение
+	/// </summary>
+	public class Message
     {
         /// <summary>
         /// Идентификатор сообщения
@@ -18,6 +16,11 @@ namespace SpeakFree.DAL.Models
         /// Текст сообщения
         /// </summary>
         public string Text { get; set; }
+
+		/// <summary>
+		/// Заголовок сообщения
+		/// </summary>
+		public string Title { get; set; }
 
         /// <summary>
         /// Является ли соощение анонимным
@@ -38,6 +41,11 @@ namespace SpeakFree.DAL.Models
 		/// Тип сообщения
 		/// </summary>
 		public MessageType Type { get; set; }
+
+		/// <summary>
+		/// Приоритет
+		/// </summary>
+		public Priority Priority { get; set; }
 
 		/// <summary>
 		/// Автор сообщения 

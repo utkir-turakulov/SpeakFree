@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+Этот файл используется процессом публикации или упаковки вашего веб-проекта. Можно настроить поведение этого процесса,
+изменив этот файл MSBuild. Подробности см. на странице https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAu6niWlmeIEOquLYLWJQnUgAAAAACAAAAAAAQZgAAAAEAACAAAAAHrwd71Zc3On5j2WbbEA2XTURmNcE4pdbcoZj1uD80LgAAAAAOgAAAAAIAACAAAAByHShnLyIbnRxZuodnYVvp9M35bgXT4PqZ37nQx9rdloAAAACtBp4wLdif2YA+I40W3HcW56lLDoHSwgcyczYACe2l/hhgugVPjOMecvG9zH9HAEytG8QtO2C0VkkKyAUo1ssnFJUT9Zv/WfZy/qVOfkVWItJpTBjc+QXnQs2xfWwBmAO+ncmMRHJ5fKvTvbyWg0jgHbHRavfuRmhwudf40TwA9UAAAADIYGa4tRQLl7yofe3EmPVAKfaeB5z/3t5YUvSm2zH9gRiIrNqi0xt/NgSVr2fYG4tM3Rc9n6obGJVE/7lfWTIw</EncryptedPassword>
+  </PropertyGroup>
+  <ItemGroup>
+    <AzureDBConnectionStrings Include="Data Source=tcp:speak-freedbserver.database.windows.net,1433;Initial Catalog=speak-free-dev_db1;User Id=utkir@speak-freedbserver;Password=admin95" />
+    <AzureDBConnectionStrings Include="Data Source=tcp:speak-freedbserver.database.windows.net,1433;Initial Catalog=speak-free-dev_db;User Id=utkir@speak-freedbserver;Password=silver95" />
+  </ItemGroup>
+</Project>

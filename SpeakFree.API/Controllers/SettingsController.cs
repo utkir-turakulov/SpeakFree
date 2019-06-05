@@ -12,7 +12,7 @@ namespace SpeakFree.API.Controllers
     public class SettingsController : Controller
     {
         // GET: /<controller>/
-        [HttpGet("GetSettings")]
+        [HttpGet(Name = "GetSettings")]
        // [Route("GetSettings")]
         public IActionResult Index()
         {

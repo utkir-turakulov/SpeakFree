@@ -53,7 +53,7 @@ namespace SpeakFree.API.Controllers
 		/// <returns></returns>
 		[HttpGet("Get{id}")]
 	    public async Task<IActionResult> Get(string id)
-		{
+		{ 
 			var users = await this._userOperationService.Get(id);
 		    return this.Ok(users);
 		}

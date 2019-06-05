@@ -25,7 +25,7 @@ namespace SpeakFree.API.Controllers
     /// <summary>
     /// Аккаунт контроллер
     /// </summary>
-    [Produces("application/json")]  
+   // [Produces("application/json")]  
 	[Route("/[controller]")]
 	public class AccountController : Controller
 	{

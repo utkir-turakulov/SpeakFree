@@ -12,11 +12,11 @@ namespace SpeakFree.API.Controllers
     public class ChatController : Controller
     {
         // GET: /<controller>/
-        [HttpGet("GetChat")]
+        [HttpGet(Name = "GetChat")]
 		//[Route("GetChat")]
-		public IActionResult Index()
+		public IActionResult GetChat()
         {
-            return View();
+            return View("Index");
         }
     }
 }

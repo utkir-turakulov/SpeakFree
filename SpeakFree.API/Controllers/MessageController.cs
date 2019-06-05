@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -10,9 +7,7 @@ namespace SpeakFree.API.Controllers
 {
 	using Microsoft.AspNetCore.Authorization;
 	using Microsoft.AspNetCore.Identity;
-	using SpeakFree.BLL.Dto.Message;
 	using SpeakFree.BLL.Services;
-	using SpeakFree.BLL.Services.Implementation;
 	using SpeakFree.DAL.Models;
 
 	/// <summary>
@@ -44,7 +39,7 @@ namespace SpeakFree.API.Controllers
 			return View();
 		}
 
-
+	/*
 		/// <summary>
 		/// Получить все
 		/// </summary>
@@ -74,7 +69,7 @@ namespace SpeakFree.API.Controllers
 		/// <param name="value"></param>
 		// POST api/<controller>
 		[HttpPost("Create")]
-		public async Task Create([FromBody]MessageDto value)
+		public async Task<IActionResult> Create(MessageDto value)
 		{
 			if (value != null)
 			{
@@ -87,12 +82,21 @@ namespace SpeakFree.API.Controllers
 				Message message = new Message()
 				{
 					Author = user,
-					CreatedAt = value.CreatedAt,
+					CreatedAt = value.CreatedAt == DateTime.MinValue ? DateTime.Now : value.CreatedAt,
 					IsAnonymous = value.IsAnonymous,
-					Text = value.Text
+					Text = value.Text,
+					Priority = value.Priority,
+					Title = value.Title,
+					Type = value.Type
 				};
 				await this._messageOperationService.Create(message);
 			}
+			if (!string.IsNullOrEmpty(value.ReturnUrl))
+			{
+				return RedirectToAction(value.ReturnUrl.Split("/")[1],value.ReturnUrl.Split("/")[0]);
+			}
+
+			return View("Index");
 		}
 
 		/// <summary>
@@ -101,7 +105,7 @@ namespace SpeakFree.API.Controllers
 		/// <param name="message"></param>
 		// Post api/<controller>/5
 		[HttpPost("Edit")]
-		public async Task Edit([FromBody]MessageDto message)
+		public async Task Edit(MessageDto message)
 		{
 			if (message != null)
 			{
@@ -138,7 +142,7 @@ namespace SpeakFree.API.Controllers
 				await this._messageOperationService.Delete(message);
 			}
 		}
-
+		*/
         /// <summary>
         /// Страница отправки сообщения
         /// </summary>

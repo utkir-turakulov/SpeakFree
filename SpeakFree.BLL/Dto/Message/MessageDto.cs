@@ -18,6 +18,9 @@ namespace SpeakFree.BLL.Dto.Message
 		public string Text { get; set; }
 
 		[DataMember]
+		public string Title { get; set; }
+
+		[DataMember]
 		public bool IsAnonymous { get; set; }
 
 		[DataMember]
@@ -27,6 +30,15 @@ namespace SpeakFree.BLL.Dto.Message
 		public DateTime DeletedAt { get; set; }
 
 		[DataMember]
+		public MessageType Type { get; set; }
+
+		[DataMember]
+		public Priority Priority { get; set; }
+
+		[DataMember]
 		public string AuthorId { get; set; }
+
+		[DataMember]
+		public string ReturnUrl { get; set; }
     }
 }
