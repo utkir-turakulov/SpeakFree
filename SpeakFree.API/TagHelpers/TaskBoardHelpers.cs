@@ -12,8 +12,10 @@ using System.Threading.Tasks;
 
 namespace SpeakFree.API.TagHelpers
 {
+	
 	public static class TaskBoardHelpers
 	{
+
 		/// <summary>
 		/// Создание списка карточек
 		/// </summary>
@@ -103,12 +105,7 @@ namespace SpeakFree.API.TagHelpers
 												<a href='#' class='text-default dropdown-toggle' data-toggle='dropdown'><i class='icon-menu7'></i></a>
 
 												<div class='dropdown-menu dropdown-menu-right'>
-													<a href='#' class='dropdown-item'><i class='icon-alarm-add'></i> Check in</a>
-													<a href='#' class='dropdown-item'><i class='icon-attachment'></i> Attach screenshot</a>
-													<a href='#' class='dropdown-item'><i class='icon-rotate-ccw2'></i> Reassign</a>
-													<div class='dropdown-divider'></div>
-													<a href='#' class='dropdown-item'><i class='icon-pencil7'></i> Edit task</a>
-													<a href='#' class='dropdown-item'><i class='icon-cross2'></i> Remove</a>
+													{5}
 												</div>
 											</li>
 										</ul>
@@ -119,7 +116,8 @@ namespace SpeakFree.API.TagHelpers
 							messages.ToList()[i].Title,
 							messages.ToList()[i].Text,
 							messages.ToList()[i].CreatedAt,
-							author
+							author,
+							AddActions(messages.ToList()[i],model)
 							);
 				counter++;
 			}
@@ -129,6 +127,22 @@ namespace SpeakFree.API.TagHelpers
 			rows.Append(cardRows);
 
 			return new HtmlString(rows.ToString());
+		}
+
+
+		private static HtmlString AddActions(Message message, TaskViewModel model)
+		{
+			if (message.AuthorId == model.CurrentUser.Id)
+			{
+				return new HtmlString((@"<a href='#' class='dropdown-item'><i class='icon-alarm-add'></i> Check in</a>
+													<a href='#' class='dropdown-item'><i class='icon-attachment'></i> Attach screenshot</a>
+													<a href = '#' class='dropdown-item'><i class='icon-rotate-ccw2'></i> Reassign</a>
+													<div class='dropdown-divider'></div>
+													<a href = '#' class='dropdown-item'><i class='icon-pencil7'></i> Edit task</a>
+													<a href = '#' class='dropdown-item'><i class='icon-cross2'></i> Remove</a>").ToString());
+			}
+
+			return new HtmlString(@"<a href='#' class='dropdown-item'></a>");
 		}
 	}
 }

@@ -128,7 +128,7 @@ namespace SpeakFree.API.Controllers
 		/// <param name="message"></param>
 		// Post api/<controller>/5
 		[HttpPost("Edit")]
-		public async Task Edit(MessageDto message)
+		public async Task<IActionResult> Edit(MessageDto message)
 		{
 			if (message != null)
 			{
@@ -141,14 +141,19 @@ namespace SpeakFree.API.Controllers
 
 				Message msg = _messageOperationService.Find(x => x.Id == message.Id).First();
 
-				msg.CreatedAt = message.CreatedAt;
+				msg.CreatedAt = message.CreatedAt == DateTime.MinValue ? DateTime.Now : message.CreatedAt;
 				msg.DeletedAt = message.DeletedAt;
 				msg.Author = user;
 				msg.IsAnonymous = message.IsAnonymous;
 				msg.Text = message.Text;
-
+				msg.Title = message.Title;
+				msg.Priority = message.Priority;
+				msg.Type = message.Type;
+				
 				await this._messageOperationService.Update(msg);
 			}
+
+			return View("Index");
 		}
 
 		/// <summary>
@@ -157,13 +162,15 @@ namespace SpeakFree.API.Controllers
 		/// <param name="id"></param>
 		// DELETE api/<controller>/5
 		[HttpDelete("Delete{id}")]
-		public async Task Delete(int? id)
+		public async Task<IActionResult> Delete(int? id)
 		{
 			if (id != null)
 			{
 				Message message = _messageOperationService.Find(x => x.Id == id).First();
 				await this._messageOperationService.Delete(message);
 			}
+
+			return View("Index");
 		}
 
 	}
