@@ -43,6 +43,7 @@ namespace SpeakFree.API.Controllers
 		// GET: /<controller>/
 		[HttpGet("GetTasks")]
 		[Route("GetTasks")]
+		[Authorize]
         public async Task<IActionResult> Index(int page = 1)
         {
 			var messageSourse = (await _messageOperationService.GetAll()).ToList();
