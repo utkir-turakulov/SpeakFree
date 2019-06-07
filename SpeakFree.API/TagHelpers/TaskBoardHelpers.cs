@@ -40,8 +40,10 @@ namespace SpeakFree.API.TagHelpers
 				{
 					counter = 0;
 				}
-				string author = messages.ToList()[i].Author != null ?
-					messages.ToList()[i].Author?.Surename + " " + messages.ToList()[i]?.Author?.Name + " " + messages.ToList()[i].Author?.Patronymic
+
+				
+				string author = messages.ToList()[i].User != null ?
+					messages.ToList()[i].User?.Surename + " " + messages.ToList()[i]?.User?.Name + " " + messages.ToList()[i].User?.Patronymic
 					:
 					"Аноним";
 
@@ -132,16 +134,19 @@ namespace SpeakFree.API.TagHelpers
 
 		private static HtmlString AddActions(Message message, TaskViewModel model)
 		{
-			if (message.AuthorId == model.CurrentUser.Id)
+			if (message.UserId?.ToString() == model.CurrentUser.Id)
 			{
-				return new HtmlString((@"<a href='#' class='dropdown-item'><i class='icon-alarm-add'></i> Check in</a>
+				return new HtmlString(string.Format(@"<a href='#' class='dropdown-item'><i class='icon-alarm-add'></i> Check in</a>
 													<a href='#' class='dropdown-item'><i class='icon-attachment'></i> Attach screenshot</a>
 													<a href = '#' class='dropdown-item'><i class='icon-rotate-ccw2'></i> Reassign</a>
 													<div class='dropdown-divider'></div>
-													<a href = '#' class='dropdown-item'><i class='icon-pencil7'></i> Edit task</a>
-													<a href = '#' class='dropdown-item'><i class='icon-cross2'></i> Remove</a>").ToString());
+													<a href='#' class='dropdown-item' data-toggle='modal' data-target='#edit_message_modal' onclick='fillData({0})'><i class='icon-pencil7' ></i> Edit task</a>
+													<a href='#' class='dropdown-item btn bg-danger' data-toggle='modal' data-target='#delete-message-modal' onclick='fillOnDelete({0})'><i class='icon-cross2'></i> Remove</a>", message.Id));
 			}
-
+			else
+			{
+				return new HtmlString("<a href = '#' class='dropdown-item'>У вас нет прав на управление данным сообщением</a>");
+			}
 			return new HtmlString(@"<a href='#' class='dropdown-item'></a>");
 		}
 	}

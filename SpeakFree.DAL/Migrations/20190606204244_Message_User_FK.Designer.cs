@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpeakFree.DAL.Context;
 
 namespace SpeakFree.DAL.Migrations
 {
     [DbContext(typeof(SpeakFreeDataContext))]
-    partial class SpeakFreeDataContextModelSnapshot : ModelSnapshot
+    [Migration("20190606204244_Message_User_FK")]
+    partial class Message_User_FK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -135,6 +137,8 @@ namespace SpeakFree.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AuthorId");
+
                     b.Property<DateTime>("CreatedAt");
 
                     b.Property<DateTime>("DeletedAt");
@@ -149,11 +153,9 @@ namespace SpeakFree.DAL.Migrations
 
                     b.Property<int>("Type");
 
-                    b.Property<string>("UserId");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("AuthorId");
 
                     b.ToTable("Messages");
                 });
@@ -262,9 +264,9 @@ namespace SpeakFree.DAL.Migrations
 
             modelBuilder.Entity("SpeakFree.DAL.Models.Message", b =>
                 {
-                    b.HasOne("SpeakFree.DAL.Models.User", "User")
+                    b.HasOne("SpeakFree.DAL.Models.User", "Author")
                         .WithMany("Messages")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("AuthorId");
                 });
 #pragma warning restore 612, 618
         }

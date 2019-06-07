@@ -11,7 +11,7 @@ namespace SpeakFree.DAL.Services
     {
 	    IEnumerable<Message> GetAll();
 
-	    Message Get(int id);
+	    Message Get(long id);
 
 	    IEnumerable<Message> Find(Func<Message, Boolean> predicacte);
 

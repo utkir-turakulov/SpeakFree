@@ -10,7 +10,7 @@ namespace SpeakFree.BLL.Services
     {
 	    Task<IEnumerable<Message>> GetAll();
 
-	    Message Get(int id);
+	    Message Get(long id);
 
 	    IEnumerable<Message> Find(Func<Message, Boolean> predicacte);
 

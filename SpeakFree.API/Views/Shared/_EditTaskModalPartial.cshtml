@@ -1,0 +1,87 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using SpeakFree.DAL.Models
+@model User
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<!-- Horizontal form modal -->
+<div id="edit_message_modal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Редактировать сообщение</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form asp-controller="TaskBoard" asp-action="Edit" method="post" class="form-horizontal">
+                <input name="AuthorId" hidden value="@Model.Id" />
+                <input name="ReturnUrl" hidden value="TaskBoard/GetTasks">
+                <input name="Id" hidden value="">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <label class="col-form-label col-sm-3">Заголовок</label>
+                        <div class="col-sm-9">
+                            <input type="text" name="Title" placeholder="Тема сообшения..." class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-sm-3">Тип сообщения</label>
+                        <div class="col-sm-9">
+                            <select class="form-control select" data-fouc name="Type">
+                                <optgroup label="Виды сообщений">
+                                    <option value="1">Вопрос</option>
+                                    <option value="2">Предложение</option>
+                                    <option value="3">Проблема</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-form-label col-sm-3">Текст</label>
+                        <div class="col-sm-9">
+                            <textarea name="Text" class="form-control mb-3" rows="3" cols="1" placeholder="Введите текст сообщения..."></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-form-label col-sm-3"></label>
+                        <div class="col-sm-3">
+                            <div class="form-check form-check-switchery">
+                                <label class="form-check-label">
+                                    <input name="IsAnonymous" value="true" id="is_anonymous_check" type="checkbox" class="form-check-input-switchery" data-fouc onclick="clicked()" checked>
+                                    Отправить анонимно
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="row">
+                                <label class="col-sm-3 form-check-label mt-2">Приоритет</label>
+                                <div class="col-sm-6">
+                                    <select class="form-control select" data-fouc name="Priority">
+                                        <optgroup label="Приоритет">
+                                            <option value="1" class="bg-danger badge badge-mark mr-2 border-danger">Blocker</option>
+                                            <option value="2" class="badge badge-mark mr-2 border-warning-400">High priority</option>
+                                            <option value="3" class="badge badge-mark mr-2 border-success">Normal priority</option>
+                                            <option value="4" class="badge badge-mark mr-2 border-grey-300">Low priority</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn bg-primary">Submit form</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /horizontal form modal -->

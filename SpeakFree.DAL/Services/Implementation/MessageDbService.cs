@@ -57,7 +57,7 @@ namespace SpeakFree.DAL.Services.Implementation
 		/// </summary>
 		/// <param name="id"></param>
 		/// <returns></returns>
-		public Message Get(int id)
+		public Message Get(long id)
 		{
 			return this._context.Messages.Find(id);
 		}

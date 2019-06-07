@@ -11,6 +11,7 @@ using SpeakFree.BLL.Dto.Message;
 using SpeakFree.BLL.Services;
 using SpeakFree.BLL.Services.Implementation;
 using SpeakFree.DAL.Models;
+using Microsoft.AspNetCore.Authorization;
 
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -44,11 +45,21 @@ namespace SpeakFree.API.Controllers
 		[Route("GetTasks")]
         public async Task<IActionResult> Index(int page = 1)
         {
-			var messageSourse = await _messageOperationService.GetAll();
+			var messageSourse = (await _messageOperationService.GetAll()).ToList();
 			var count = messageSourse.Count();
 			var result = messageSourse.Skip((page-1) * PAGE_SIZE).Take(PAGE_SIZE).ToList();
 			var user = await _userManager.FindByEmailAsync(User.Identity.Name);
 
+			for (int i=0; i< result.Count;i++)
+			{
+				if (result[i].UserId != null)
+				{
+					if (result[i].User == null)
+					{
+						result[i].User = await _userManager.FindByIdAsync(result[i].UserId.ToString());
+					}
+				}
+			}
 
 
 			PageViewModel pageViewModel = new PageViewModel(count, page, PAGE_SIZE);
@@ -81,9 +92,20 @@ namespace SpeakFree.API.Controllers
 		/// <returns></returns>
 		// GET api/<controller>/5
 		[HttpGet("Get/{id}")]
-		public async Task<Message> Get(int id)
+		[AllowAnonymous]
+		public async Task<IActionResult> Get(long id)
 		{
-			return _messageOperationService.Get(id);
+			var message = _messageOperationService.Get(id);
+
+			if (message.UserId != null)
+			{
+				if (message.User == null)
+				{
+					message.User = await _userManager.FindByIdAsync(message.UserId.ToString());
+				}
+			}
+
+			return Ok(message);
 		}
 
 		/// <summary>
@@ -104,7 +126,7 @@ namespace SpeakFree.API.Controllers
 
 				Message message = new Message()
 				{
-					Author = user,
+					User = user,
 					CreatedAt = value.CreatedAt == DateTime.MinValue ? DateTime.Now : value.CreatedAt,
 					IsAnonymous = value.IsAnonymous,
 					Text = value.Text,
@@ -143,7 +165,7 @@ namespace SpeakFree.API.Controllers
 
 				msg.CreatedAt = message.CreatedAt == DateTime.MinValue ? DateTime.Now : message.CreatedAt;
 				msg.DeletedAt = message.DeletedAt;
-				msg.Author = user;
+				msg.User = user;
 				msg.IsAnonymous = message.IsAnonymous;
 				msg.Text = message.Text;
 				msg.Title = message.Title;
@@ -153,21 +175,30 @@ namespace SpeakFree.API.Controllers
 				await this._messageOperationService.Update(msg);
 			}
 
+			if (!string.IsNullOrEmpty(message.ReturnUrl))
+			{
+				return RedirectToAction(message.ReturnUrl.Split("/")[1], message.ReturnUrl.Split("/")[0]);
+			}
 			return View("Index");
 		}
 
 		/// <summary>
 		/// Удалить
 		/// </summary>
-		/// <param name="id"></param>
+		/// <param name="messageId"></param>
 		// DELETE api/<controller>/5
-		[HttpDelete("Delete{id}")]
-		public async Task<IActionResult> Delete(int? id)
+		[HttpPost("Delete")]
+		public async Task<IActionResult> Delete(int messageId,string returnUrl)
 		{
-			if (id != null)
+			if (messageId != null)
 			{
-				Message message = _messageOperationService.Find(x => x.Id == id).First();
+				Message message = _messageOperationService.Find(x => x.Id == messageId).First();
 				await this._messageOperationService.Delete(message);
+			}
+
+			if (!string.IsNullOrEmpty(returnUrl))
+			{
+				return RedirectToAction(returnUrl.Split("/")[1], returnUrl.Split("/")[0]);
 			}
 
 			return View("Index");

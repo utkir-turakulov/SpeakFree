@@ -33,7 +33,7 @@ namespace SpeakFree.BLL.Services.Implementation
 			return this.messageService.Find(predicacte);
 		}
 
-		public Message Get(int id)
+		public Message Get(long id)
 		{
 			return this.messageService.Get(id);
 		}
