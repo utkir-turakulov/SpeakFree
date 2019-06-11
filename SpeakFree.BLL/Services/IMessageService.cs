@@ -1,4 +1,6 @@
-﻿using SpeakFree.DAL.Models;
+﻿using SpeakFree.BLL.Dto.Message;
+using SpeakFree.DAL.Enums;
+using SpeakFree.DAL.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,9 +14,17 @@ namespace SpeakFree.BLL.Services
 
 	    Message Get(long id);
 
-	    IEnumerable<Message> Find(Func<Message, Boolean> predicacte);
+	    Task<IEnumerable<Message>> Find(Func<Message, Boolean> predicacte);
 
-	    Task Create(Message item);
+		Task<IEnumerable<Message>> Filter(FilterMessageDto data);
+
+		Task<IEnumerable<Message>> FilterByDate(DateFilter data);
+
+		Task<IEnumerable<Message>> FilterByPriority(int data);
+
+		Task<IEnumerable<Message>> FilterByMessageType(int data);
+
+		Task Create(Message item);
 
 	    Task Update(Message item);
 

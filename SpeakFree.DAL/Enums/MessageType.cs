@@ -1,4 +1,4 @@
-﻿namespace SpeakFree.DAL.Models
+﻿namespace SpeakFree.DAL.Enums
 {
     /// <summary>
     /// Типы сообщений

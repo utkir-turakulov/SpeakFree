@@ -12,6 +12,8 @@ using SpeakFree.BLL.Services;
 using SpeakFree.BLL.Services.Implementation;
 using SpeakFree.DAL.Models;
 using Microsoft.AspNetCore.Authorization;
+using SpeakFree.DAL.Enums;
+using SpeakFree.BLL.Dto.Message;
 
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -162,7 +164,7 @@ namespace SpeakFree.API.Controllers
 					user = await this._userManager.FindByIdAsync(message.AuthorId.ToString());
 				}
 
-				Message msg = _messageOperationService.Find(x => x.Id == message.Id).First();
+				Message msg = (await _messageOperationService.Find(x => x.Id == message.Id)).First();
 
 				msg.CreatedAt = message.CreatedAt == DateTime.MinValue ? DateTime.Now : message.CreatedAt;
 				msg.DeletedAt = message.DeletedAt;
@@ -193,7 +195,7 @@ namespace SpeakFree.API.Controllers
 		{
 			if (messageId != null)
 			{
-				Message message = _messageOperationService.Find(x => x.Id == messageId).First();
+				Message message = (await _messageOperationService.Find(x => x.Id == messageId)).First();
 				await this._messageOperationService.Delete(message);
 			}
 
@@ -205,5 +207,164 @@ namespace SpeakFree.API.Controllers
 			return View("Index");
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		[HttpPost("Filtrate")]
+		public async Task<IActionResult> Filtrate(FilterMessageDto data)
+		{
+			var messageSourse = await _messageOperationService.Filter(data);
+			var count = messageSourse.Count();
+			var result = messageSourse.Skip((data.PageNumber - 1) * PAGE_SIZE).Take(PAGE_SIZE).ToList();
+			var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+
+			for (int i = 0; i < result.Count; i++)
+			{
+				if (result[i].UserId != null)
+				{
+					if (result[i].User == null)
+					{
+						result[i].User = await _userManager.FindByIdAsync(result[i].UserId.ToString());
+					}
+				}
+			}
+
+			PageViewModel pageViewModel = new PageViewModel(count, data.PageNumber, PAGE_SIZE);
+			TaskViewModel model = new TaskViewModel
+			{
+				Tasks = result,
+				CurrentUser = user,
+				PageViewModel = pageViewModel
+			};
+
+			if (!string.IsNullOrEmpty(data.ReturnUrl))
+			{
+				return RedirectToAction(data.ReturnUrl.Split("/")[1], data.ReturnUrl.Split("/")[0],model);
+			}
+
+			return View("Index",model);
+		}
+
+		/// <summary>
+		/// Фильтрация по дате
+		/// </summary>
+		/// <param name="dateFilter"></param>
+		/// <param name="pageNumber"></param>
+		/// <param name="returnUrl"></param>
+		/// <returns></returns>
+		[HttpGet("GetByDate")]
+		public async Task<IActionResult> GetByDate(DateFilter dateFilter,int pageNumber,string returnUrl)
+		{
+			var messageSourse = await _messageOperationService.FilterByDate(dateFilter);
+			var count = messageSourse.Count();
+			var result = messageSourse.Skip((pageNumber - 1) * PAGE_SIZE).Take(PAGE_SIZE).ToList();
+			var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+
+			for (int i = 0; i < result.Count; i++)
+			{
+				if (result[i].UserId != null)
+				{
+					if (result[i].User == null)
+					{
+						result[i].User = await _userManager.FindByIdAsync(result[i].UserId.ToString());
+					}
+				}
+			}
+
+			PageViewModel pageViewModel = new PageViewModel(count, pageNumber, PAGE_SIZE);
+			TaskViewModel model = new TaskViewModel
+			{
+				Tasks = result,
+				CurrentUser = user,
+				PageViewModel = pageViewModel
+			};
+
+			return View("Index", model);
+		}
+
+		/// <summary>
+		/// Фильтрация по типу сообщения
+		/// </summary>
+		/// <param name="messageType"></param>
+		/// <param name="pageNumber"></param>
+		/// <param name="returnUrl"></param>
+		/// <returns></returns>
+		[HttpGet("GetByMessageType")]
+		public async Task<IActionResult> GetByMessageType(int messageType, int pageNumber, string returnUrl)
+		{
+			var messageSourse = await _messageOperationService.FilterByMessageType(messageType);
+			var count = messageSourse.Count();
+			var result = messageSourse.Skip((pageNumber - 1) * PAGE_SIZE).Take(PAGE_SIZE).ToList();
+			var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+
+			for (int i = 0; i < result.Count; i++)
+			{
+				if (result[i].UserId != null)
+				{
+					if (result[i].User == null)
+					{
+						result[i].User = await _userManager.FindByIdAsync(result[i].UserId.ToString());
+					}
+				}
+			}
+
+			PageViewModel pageViewModel = new PageViewModel(count, pageNumber, PAGE_SIZE);
+			TaskViewModel model = new TaskViewModel
+			{
+				Tasks = result,
+				CurrentUser = user,
+				PageViewModel = pageViewModel
+			};
+
+			/*if (!string.IsNullOrEmpty(returnUrl))
+			{
+				return RedirectToAction(returnUrl.Split("/")[1], returnUrl.Split("/")[0], model);
+			}*/
+
+			return View("Index", model);
+		}
+
+		/// <summary>
+		/// Фильтрация по приоритету
+		/// </summary>
+		/// <param name="priority"></param>
+		/// <param name="pageNumber"></param>
+		/// <param name="returnUrl"></param>
+		/// <returns></returns>
+		[HttpGet("GetByPriority")]
+		public async Task<IActionResult> GetByPriority(int priority, int pageNumber, string returnUrl)
+		{
+			var messageSourse = await _messageOperationService.FilterByPriority(priority);
+			var count = messageSourse.Count();
+			var result = messageSourse.Skip((pageNumber - 1) * PAGE_SIZE).Take(PAGE_SIZE).ToList();
+			var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+
+			for (int i = 0; i < result.Count; i++)
+			{
+				if (result[i].UserId != null)
+				{
+					if (result[i].User == null)
+					{
+						result[i].User = await _userManager.FindByIdAsync(result[i].UserId.ToString());
+					}
+				}
+			}
+
+			PageViewModel pageViewModel = new PageViewModel(count, pageNumber, PAGE_SIZE);
+			TaskViewModel model = new TaskViewModel
+			{
+				Tasks = result,
+				CurrentUser = user,
+				PageViewModel = pageViewModel
+			};
+
+			/*if (!string.IsNullOrEmpty(returnUrl))
+			{
+				return RedirectToAction(returnUrl.Split("/")[1], returnUrl.Split("/")[0], model);
+			}*/
+
+			return View("Index", model);
+		}
 	}
 }

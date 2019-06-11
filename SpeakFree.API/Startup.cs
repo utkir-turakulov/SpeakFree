@@ -16,6 +16,7 @@ namespace SpeakFree.API
 	using Microsoft.IdentityModel.Tokens;
 	using SpeakFree.API.Services;
 	using AuthOption = AuthOptions.AuthOptions;
+	using SpeakFree.API.Controllers;
 
 	public class Startup
     {
@@ -73,7 +74,7 @@ namespace SpeakFree.API
 			services.AddScoped<TokenService>();
 			services.AddDataAccessCollection(Configuration);
 			services.AddLogicServicesCollection();
-
+			services.AddSignalR();
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 		}
 
@@ -104,25 +105,17 @@ namespace SpeakFree.API
 			app.UseAuthentication();
 			app.UseStaticFiles();
 			app.UseCookiePolicy();
+
+			app.UseSignalR(routes =>
+			{
+				routes.MapHub<ChatHub>("/chatter");
+			});
+
 			app.UseMvc(routes =>
 				{
-                    /*routes.MapRoute(
-                    name: "default_route",
-                    template: "{controller}/{action}/{id?}",
-                    defaults: new { controller = "Home", action = "Index" });*/
-
 					routes.MapRoute(
 					 name: "default",
 					 template: "{controller=Home}/{action=Index}/{id?}");
-
-					/* routes.MapRoute(
-					 name: "default",
-					 template: "{controller=Home}/{action=Index}/{id?}");
-
-					 routes.MapRoute(
-					 name: "clean_route",
-					 template: "/",
-					 defaults: new { controller = "Home", action = "Index" });*/
 				});
 		}
     }

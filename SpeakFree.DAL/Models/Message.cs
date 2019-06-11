@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SpeakFree.DAL.Enums;
+using System;
 using System.Runtime.Serialization;
 
 namespace SpeakFree.DAL.Models

@@ -3,6 +3,7 @@ SpeakFree.API/obj/Debug/*
 SpeakFree.API/obj/*
 SpeakFree.API/obj/Release/*
 SpeakFree.API/bin/*
+SpeakFree.API/node_modules/*
 
 SpeakFree.BLL/obj/Debug/*
 SpeakFree.BLL/obj/*

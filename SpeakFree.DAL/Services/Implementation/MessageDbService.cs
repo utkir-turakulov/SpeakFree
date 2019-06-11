@@ -47,9 +47,9 @@ namespace SpeakFree.DAL.Services.Implementation
 		/// </summary>
 		/// <param name="predicacte"></param>
 		/// <returns></returns>
-		public IEnumerable<Message> Find(Func<Message, bool> predicacte)
+		public async Task<IEnumerable<Message>> Find(Func<Message, bool> predicacte)
 		{
-			return _context.Messages.Where(predicacte).ToList();
+			return await _context.Messages.Where(predicacte).ToAsyncEnumerable().ToList();
 		}
 
 		/// <summary>
@@ -66,9 +66,9 @@ namespace SpeakFree.DAL.Services.Implementation
 		/// Получить все сообщения
 		/// </summary>
 		/// <returns></returns>
-		public IEnumerable<Message> GetAll()
+		public async Task<IEnumerable<Message>> GetAll()
 		{
-			return this._context.Messages;
+			return await this._context.Messages.ToListAsync();
 		}
 
 		/// <summary>
