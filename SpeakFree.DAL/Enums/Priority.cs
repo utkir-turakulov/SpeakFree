@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SpeakFree.DAL.Models
+namespace SpeakFree.DAL.Enums
 {
     public enum Priority
 	{

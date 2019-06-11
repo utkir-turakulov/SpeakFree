@@ -5,7 +5,7 @@ using System.Text;
 namespace SpeakFree.BLL.Dto.Message
 {
 	using System.Runtime.Serialization;
-
+	using SpeakFree.DAL.Enums;
 	using SpeakFree.DAL.Models;
 
 	[DataContract]

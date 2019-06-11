@@ -12,8 +12,4 @@
     <ProjectReference Include="..\SpeakFree.DAL\SpeakFree.DAL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dto\Task\" />
-  </ItemGroup>
-
 </Project>

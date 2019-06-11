@@ -9,11 +9,11 @@ namespace SpeakFree.DAL.Services
 
 	public interface IMessageDbService
     {
-	    IEnumerable<Message> GetAll();
+	    Task<IEnumerable<Message>> GetAll();
 
 	    Message Get(long id);
 
-	    IEnumerable<Message> Find(Func<Message, Boolean> predicacte);
+	    Task<IEnumerable<Message>> Find(Func<Message, Boolean> predicacte);
 
 	    Task Create(Message item);
 

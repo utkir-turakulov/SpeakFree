@@ -4,6 +4,7 @@
 @using System.Web;
 @using Microsoft.AspNetCore.Mvc;
 @using SpeakFree.API.TagHelpers;
+@using SpeakFree.DAL.Enums;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -23,13 +24,13 @@
                 <h4><i class="icon-arrow-left52 mr-2"></i> <span class="font-weight-semibold">Task Manager</span> - Grid</h4>
                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
             </div>
-            <div class="header-elements d-none">
-                <div class="d-flex justify-content-center">
-                    <a href="#" class="btn btn-link btn-float text-default"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
-                    <a href="#" class="btn btn-link btn-float text-default"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
-                    <a href="#" class="btn btn-link btn-float text-default"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
-                </div>
-            </div>
+            <!--<div class="header-elements d-none"> TODO: При увеличении функционала восстановить
+                    <div class="d-flex justify-content-center">
+                        <a href="#" class="btn btn-link btn-float text-default"><i class="icon-bars-alt text-primary"></i><span>Statistics</span></a>
+                        <a href="#" class="btn btn-link btn-float text-default"><i class="icon-calculator text-primary"></i> <span>Invoices</span></a>
+                        <a href="#" class="btn btn-link btn-float text-default"><i class="icon-calendar5 text-primary"></i> <span>Schedule</span></a>
+                    </div>
+                </div>-->
         </div>
         <div class="breadcrumb-line breadcrumb-line-light header-elements-md-inline">
             <div class="d-flex">
@@ -40,7 +41,7 @@
                 </div>
                 <a href="#" class="header-elements-toggle text-default d-md-none"><i class="icon-more"></i></a>
             </div>
-            <div class="header-elements d-none">
+            <!--<div class="header-elements d-none">
                 <div class="breadcrumb justify-content-center">
                     <a href="#" class="breadcrumb-elements-item">
                         <i class="icon-comment-discussion mr-2"></i>
@@ -60,7 +61,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> TODO:  Восстановить при увеличении функционала-->
         </div>
     </div>
     <!-- /page header -->
@@ -75,7 +76,7 @@
                     <div class="text-center d-lg-none w-100">
                         <button type="button" class="navbar-toggler dropdown-toggle" data-toggle="collapse" data-target="#navbar-filter">
                             <i class="icon-unfold mr-2"></i>
-                            Filters
+                            Фильтры
                         </button>
                     </div>
                     <div class="navbar-collapse collapse" id="navbar-filter">
@@ -86,60 +87,57 @@
                             <li class="nav-item dropdown">
                                 <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
                                     <i class="icon-sort-time-asc mr-2"></i>
-                                    By date
+                                    По датам
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item">Show all</a>
+                                    <a href="GetByDate?dateFilter=1&pageNumber=@Model.PageViewModel.PageNumber &returnUrl=TaskBoard/GetTasks" class="dropdown-item">Отобразить все</a>
                                     <div class="dropdown-divider"></div>
-                                    <a href="#" class="dropdown-item">Today</a>
-                                    <a href="#" class="dropdown-item">Yesterday</a>
-                                    <a href="#" class="dropdown-item">This week</a>
-                                    <a href="#" class="dropdown-item">This month</a>
-                                    <a href="#" class="dropdown-item">This year</a>
+                                    <a href="GetByDate?dateFilter=2&pageNumber=@Model.PageViewModel.PageNumber &returnUrl=TaskBoard/GetTasks" class="dropdown-item">Сегодня</a>
+                                    <a href="GetByDate?dateFilter=3&pageNumber=@Model.PageViewModel.PageNumber &returnUrl=TaskBoard/GetTasks" class="dropdown-item">Вчера</a>
+                                    <a href="GetByDate?dateFilter=4&pageNumber=@Model.PageViewModel.PageNumber &returnUrl=TaskBoard/GetTasks" class="dropdown-item">На этой неделе</a>
+                                    <a href="GetByDate?dateFilter=5&pageNumber=@Model.PageViewModel.PageNumber &returnUrl=TaskBoard/GetTasks" class="dropdown-item">В этом месяце</a>
+                                    <a href="GetByDate?dateFilter=6&pageNumber=@Model.PageViewModel.PageNumber &returnUrl=TaskBoard/GetTasks" class="dropdown-item">В этом году</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
                                     <i class="icon-sort-amount-desc mr-2"></i>
-                                    By status
+                                    По типу
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item">Show all</a>
+                                    <a href="GetByMessageType?messageType=4&pageNumber=@Model.PageViewModel.PageNumber &returnUrl=TaskBoard/GetTasks" class="dropdown-item">Отобразить все</a>
                                     <div class="dropdown-divider"></div>
-                                    <a href="#" class="dropdown-item">Open</a>
-                                    <a href="#" class="dropdown-item">On hold</a>
-                                    <a href="#" class="dropdown-item">Resolved</a>
-                                    <a href="#" class="dropdown-item">Closed</a>
-                                    <a href="#" class="dropdown-item">Duplicate</a>
-                                    <a href="#" class="dropdown-item">Invalid</a>
-                                    <a href="#" class="dropdown-item">Wontfix</a>
+                                    <a href="GetByMessageType?messageType=1&pageNumber=@Model.PageViewModel.PageNumber &returnUrl=TaskBoard/GetTasks" class="dropdown-item">Вопрос</a>
+                                    <a href="GetByMessageType?messageType=2&pageNumber=@Model.PageViewModel.PageNumber &returnUrl=TaskBoard/GetTasks" class="dropdown-item">Предложение</a>
+                                    <a href="GetByMessageType?messageType=3&pageNumber=@Model.PageViewModel.PageNumber &returnUrl=TaskBoard/GetTasks" class="dropdown-item">Проблема</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
                                 <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
                                     <i class="icon-sort-numeric-asc mr-2"></i>
-                                    By priority
+                                    По приоритету
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item">Show all</a>
+                                    <a href="GetByPriority?priority=5&pageNumber=@Model.PageViewModel.PageNumber &returnUrl=TaskBoard/GetTasks" class="dropdown-item">Отобразить все</a>
                                     <div class="dropdown-divider"></div>
-                                    <a href="#" class="dropdown-item">Highest</a>
-                                    <a href="#" class="dropdown-item">High</a>
-                                    <a href="#" class="dropdown-item">Normal</a>
-                                    <a href="#" class="dropdown-item">Low</a>
+                                    <a href="GetByPriority?priority=1&pageNumber=@Model.PageViewModel.PageNumber &returnUrl=TaskBoard/GetTasks" class="dropdown-item">Критичный</a>
+                                    <a href="GetByPriority?priority=2&pageNumber=@Model.PageViewModel.PageNumber &returnUrl=TaskBoard/GetTasks" class="dropdown-item">Высокий</a>
+                                    <a href="GetByPriority?priority=3&pageNumber=@Model.PageViewModel.PageNumber &returnUrl=TaskBoard/GetTasks" class="dropdown-item">Нормальный</a>
+                                    <a href="GetByPriority?priority=4&pageNumber=@Model.PageViewModel.PageNumber &returnUrl=TaskBoard/GetTasks" class="dropdown-item">Низкий</a>
                                 </div>
                             </li>
                         </ul>
-                        <span class="navbar-text font-weight-semibold mr-3 ml-md-auto">
-                            View mode:
-                        </span>
-                        <div class="form-check form-check-switchery form-check-switchery-double mb-3 mb-lg-0">
-                            <label class="form-check-label">
-                                List
-                                <input type="checkbox" class="form-input-switchery" checked data-fouc>
-                                Grid
-                            </label>
-                        </div>
+                        <!-- <span class="navbar-text font-weight-semibold mr-3 ml-md-auto">
+                                View mode:
+                            </span>
+                            <div class="form-check form-check-switchery form-check-switchery-double mb-3 mb-lg-0">
+                                <label class="form-check-label">
+                                    List
+                                    <input type="checkbox" class="form-input-switchery" checked data-fouc>
+                                    Grid
+                                </label>
+                            </div>
+                        -->
                     </div>
                 </div>
                 <!-- /filter toolbar -->
@@ -212,7 +210,7 @@
                     <!-- Search -->
                     <div class="card">
                         <div class="card-header bg-transparent header-elements-inline">
-                            <span class="card-title font-weight-semibold">Search task</span>
+                            <span class="card-title font-weight-semibold">Поиск</span>
                             <div class="header-elements">
                                 <div class="list-icons">
                                     <a class="list-icons-item" data-action="collapse"></a>
@@ -222,7 +220,7 @@
                         <div class="card-body">
                             <form action="#">
                                 <div class="form-group-feedback form-group-feedback-right">
-                                    <input type="search" class="form-control" placeholder="type and hit Enter">
+                                    <input type="search" class="form-control" placeholder="Введите заголовк ">
                                     <div class="form-control-feedback">
                                         <i class="icon-search4 font-size-base text-muted"></i>
                                     </div>
@@ -232,44 +230,44 @@
                     </div>
                     <!-- /search -->
                     <!-- Actions  -->
-                    <div class="card">
-                        <div class="card-header bg-transparent header-elements-inline">
-                            <span class="card-title font-weight-semibold">Actions</span>
-                            <div class="header-elements">
-                                <div class="list-icons">
-                                    <a class="list-icons-item" data-action="collapse"></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="row row-tile no-gutters">
-                                <div class="col-6">
-                                    <button type="button" class="btn btn-light btn-block btn-float m-0">
-                                        <i class="icon-github4 icon-2x"></i>
-                                        <span>Github</span>
-                                    </button>
-                                    <button type="button" class="btn btn-light btn-block btn-float m-0">
-                                        <i class="icon-dropbox text-blue-400 icon-2x"></i>
-                                        <span>Dropbox</span>
-                                    </button>
-                                </div>
+                    <!--   <div class="card">
+                              <div class="card-header bg-transparent header-elements-inline">
+                                  <span class="card-title font-weight-semibold">Actions</span>
+                                  <div class="header-elements">
+                                      <div class="list-icons">
+                                          <a class="list-icons-item" data-action="collapse"></a>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="card-body">
+                                  <div class="row row-tile no-gutters">
+                                      <div class="col-6">
+                                          <button type="button" class="btn btn-light btn-block btn-float m-0">
+                                              <i class="icon-github4 icon-2x"></i>
+                                              <span>Github</span>
+                                          </button>
+                                          <button type="button" class="btn btn-light btn-block btn-float m-0">
+                                              <i class="icon-dropbox text-blue-400 icon-2x"></i>
+                                              <span>Dropbox</span>
+                                          </button>
+                                      </div>
 
-                                <div class="col-6">
-                                    <button type="button" class="btn btn-light btn-block btn-float m-0">
-                                        <i class="icon-dribbble3 text-pink-400 icon-2x"></i>
-                                        <span>Dribbble</span>
-                                    </button>
-                                    <button type="button" class="btn btn-light btn-block btn-float m-0">
-                                        <i class="icon-google-drive text-success-400 icon-2x"></i>
-                                        <span>Google Drive</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                      <div class="col-6">
+                                          <button type="button" class="btn btn-light btn-block btn-float m-0">
+                                              <i class="icon-dribbble3 text-pink-400 icon-2x"></i>
+                                              <span>Dribbble</span>
+                                          </button>
+                                          <button type="button" class="btn btn-light btn-block btn-float m-0">
+                                              <i class="icon-google-drive text-success-400 icon-2x"></i>
+                                              <span>Google Drive</span>
+                                          </button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>  TODO: Восстановить при увеличении функционала-->
                     <!-- /actions -->
                     <!-- Navigation -->
-                    <div class="card">
+                    <!--<div class="card">
                         <div class="card-header bg-transparent header-elements-inline">
                             <span class="card-title font-weight-semibold">Navigation</span>
                             <div class="header-elements">
@@ -354,163 +352,163 @@
                                 </li>
                             </div>
                         </div>
-                    </div>
+                    </div> TODO: восстановить -->
                     <!-- /navigation -->
                     <!-- Assigned users -->
-                    <div class="card">
-                        <div class="card-header bg-transparent header-elements-inline">
-                            <span class="card-title font-weight-semibold">Assigned users</span>
-                            <div class="header-elements">
-                                <div class="list-icons">
-                                    <a class="list-icons-item" data-action="collapse"></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <ul class="media-list">
-                                <li class="media">
-                                    <a href="#" class="mr-3">
-                                        <img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
-                                    </a>
-                                    <div class="media-body">
-                                        <a href="#" class="media-title font-weight-semibold">James Alexander</a>
-                                        <div class="font-size-sm text-muted">Santa Ana, CA.</div>
-                                    </div>
-                                    <div class="ml-3 align-self-center">
-                                        <span class="badge badge-mark border-success"></span>
-                                    </div>
-                                </li>
-                                <li class="media">
-                                    <a href="#" class="mr-3">
-                                        <img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
-                                    </a>
-                                    <div class="media-body">
-                                        <a href="#" class="media-title font-weight-semibold">Jeremy Victorino</a>
-                                        <div class="font-size-sm text-muted">Dowagiac, MI.</div>
-                                    </div>
-                                    <div class="ml-3 align-self-center">
-                                        <span class="badge badge-mark border-danger"></span>
-                                    </div>
-                                </li>
-                                <li class="media">
-                                    <a href="#" class="mr-3">
-                                        <img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
-                                    </a>
-                                    <div class="media-body">
-                                        <a href="#" class="media-title font-weight-semibold">Margo Baker</a>
-                                        <div class="font-size-sm text-muted">Kasaan, AK.</div>
-                                    </div>
-                                    <div class="ml-3 align-self-center">
-                                        <span class="badge badge-mark border-success"></span>
-                                    </div>
-                                </li>
-                                <li class="media">
-                                    <a href="#" class="mr-3">
-                                        <img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
-                                    </a>
-                                    <div class="media-body">
-                                        <a href="#" class="media-title font-weight-semibold">Beatrix Diaz</a>
-                                        <div class="font-size-sm text-muted">Neenah, WI.</div>
-                                    </div>
-                                    <div class="ml-3 align-self-center">
-                                        <span class="badge badge-mark border-warning"></span>
-                                    </div>
-                                </li>
-                                <li class="media">
-                                    <a href="#" class="mr-3">
-                                        <img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
-                                    </a>
-                                    <div class="media-body">
-                                        <a href="#" class="media-title font-weight-semibold">Richard Vango</a>
-                                        <div class="font-size-sm text-muted">Grapevine, TX.</div>
-                                    </div>
-                                    <div class="ml-3 align-self-center">
-                                        <span class="badge badge-mark border-grey-400"></span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <!--   <div class="card">
+                             <div class="card-header bg-transparent header-elements-inline">
+                                 <span class="card-title font-weight-semibold">Assigned users</span>
+                                 <div class="header-elements">
+                                     <div class="list-icons">
+                                         <a class="list-icons-item" data-action="collapse"></a>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="card-body">
+                                 <ul class="media-list">
+                                     <li class="media">
+                                         <a href="#" class="mr-3">
+                                             <img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+                                         </a>
+                                         <div class="media-body">
+                                             <a href="#" class="media-title font-weight-semibold">James Alexander</a>
+                                             <div class="font-size-sm text-muted">Santa Ana, CA.</div>
+                                         </div>
+                                         <div class="ml-3 align-self-center">
+                                             <span class="badge badge-mark border-success"></span>
+                                         </div>
+                                     </li>
+                                     <li class="media">
+                                         <a href="#" class="mr-3">
+                                             <img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+                                         </a>
+                                         <div class="media-body">
+                                             <a href="#" class="media-title font-weight-semibold">Jeremy Victorino</a>
+                                             <div class="font-size-sm text-muted">Dowagiac, MI.</div>
+                                         </div>
+                                         <div class="ml-3 align-self-center">
+                                             <span class="badge badge-mark border-danger"></span>
+                                         </div>
+                                     </li>
+                                     <li class="media">
+                                         <a href="#" class="mr-3">
+                                             <img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+                                         </a>
+                                         <div class="media-body">
+                                             <a href="#" class="media-title font-weight-semibold">Margo Baker</a>
+                                             <div class="font-size-sm text-muted">Kasaan, AK.</div>
+                                         </div>
+                                         <div class="ml-3 align-self-center">
+                                             <span class="badge badge-mark border-success"></span>
+                                         </div>
+                                     </li>
+                                     <li class="media">
+                                         <a href="#" class="mr-3">
+                                             <img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+                                         </a>
+                                         <div class="media-body">
+                                             <a href="#" class="media-title font-weight-semibold">Beatrix Diaz</a>
+                                             <div class="font-size-sm text-muted">Neenah, WI.</div>
+                                         </div>
+                                         <div class="ml-3 align-self-center">
+                                             <span class="badge badge-mark border-warning"></span>
+                                         </div>
+                                     </li>
+                                     <li class="media">
+                                         <a href="#" class="mr-3">
+                                             <img src="../../../../global_assets/images/placeholders/placeholder.jpg" width="36" height="36" class="rounded-circle" alt="">
+                                         </a>
+                                         <div class="media-body">
+                                             <a href="#" class="media-title font-weight-semibold">Richard Vango</a>
+                                             <div class="font-size-sm text-muted">Grapevine, TX.</div>
+                                         </div>
+                                         <div class="ml-3 align-self-center">
+                                             <span class="badge badge-mark border-grey-400"></span>
+                                         </div>
+                                     </li>
+                                 </ul>
+                             </div>
+                         </div> TODO: восстановить при увеличении функционала-->
                     <!-- /assigned users -->
                     <!-- Revisions -->
-                    <div class="card">
-                        <div class="card-header bg-transparent header-elements-inline">
-                            <span class="text-uppercase font-size-sm font-weight-semibold">Revisions</span>
-                            <div class="header-elements">
-                                <div class="list-icons">
-                                    <a class="list-icons-item" data-action="collapse"></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <ul class="media-list">
-                                <li class="media">
-                                    <div class="mr-3">
-                                        <a href="#" class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon">
-                                            <i class="icon-git-pull-request"></i>
-                                        </a>
-                                    </div>
-                                    <div class="media-body">
-                                        Drop the IE <a href="#">specific hacks</a> for temporal inputs
-                                        <div class="text-muted font-size-sm">4 minutes ago</div>
-                                    </div>
-                                </li>
-                                <li class="media">
-                                    <div class="mr-3">
-                                        <a href="#" class="btn bg-transparent border-warning text-warning rounded-round border-2 btn-icon">
-                                            <i class="icon-git-commit"></i>
-                                        </a>
-                                    </div>
+                    <!--     <div class="card">
+                             <div class="card-header bg-transparent header-elements-inline">
+                                 <span class="text-uppercase font-size-sm font-weight-semibold">Revisions</span>
+                                 <div class="header-elements">
+                                     <div class="list-icons">
+                                         <a class="list-icons-item" data-action="collapse"></a>
+                                     </div>
+                                 </div>
+                             </div>
+                             <div class="card-body">
+                                 <ul class="media-list">
+                                     <li class="media">
+                                         <div class="mr-3">
+                                             <a href="#" class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon">
+                                                 <i class="icon-git-pull-request"></i>
+                                             </a>
+                                         </div>
+                                         <div class="media-body">
+                                             Drop the IE <a href="#">specific hacks</a> for temporal inputs
+                                             <div class="text-muted font-size-sm">4 minutes ago</div>
+                                         </div>
+                                     </li>
+                                     <li class="media">
+                                         <div class="mr-3">
+                                             <a href="#" class="btn bg-transparent border-warning text-warning rounded-round border-2 btn-icon">
+                                                 <i class="icon-git-commit"></i>
+                                             </a>
+                                         </div>
 
-                                    <div class="media-body">
-                                        Add full font overrides for popovers and tooltips
-                                        <div class="text-muted font-size-sm">36 minutes ago</div>
-                                    </div>
-                                </li>
-                                <li class="media">
-                                    <div class="mr-3">
-                                        <a href="#" class="btn bg-transparent border-info text-info rounded-round border-2 btn-icon">
-                                            <i class="icon-git-branch"></i>
-                                        </a>
-                                    </div>
+                                         <div class="media-body">
+                                             Add full font overrides for popovers and tooltips
+                                             <div class="text-muted font-size-sm">36 minutes ago</div>
+                                         </div>
+                                     </li>
+                                     <li class="media">
+                                         <div class="mr-3">
+                                             <a href="#" class="btn bg-transparent border-info text-info rounded-round border-2 btn-icon">
+                                                 <i class="icon-git-branch"></i>
+                                             </a>
+                                         </div>
 
-                                    <div class="media-body">
-                                        <a href="#">Chris Arney</a> created a new <span class="font-weight-semibold">Design</span> branch
-                                        <div class="text-muted font-size-sm">2 hours ago</div>
-                                    </div>
-                                </li>
-                                <li class="media">
-                                    <div class="mr-3">
-                                        <a href="#" class="btn bg-transparent border-success text-success rounded-round border-2 btn-icon">
-                                            <i class="icon-git-merge"></i>
-                                        </a>
-                                    </div>
+                                         <div class="media-body">
+                                             <a href="#">Chris Arney</a> created a new <span class="font-weight-semibold">Design</span> branch
+                                             <div class="text-muted font-size-sm">2 hours ago</div>
+                                         </div>
+                                     </li>
+                                     <li class="media">
+                                         <div class="mr-3">
+                                             <a href="#" class="btn bg-transparent border-success text-success rounded-round border-2 btn-icon">
+                                                 <i class="icon-git-merge"></i>
+                                             </a>
+                                         </div>
 
-                                    <div class="media-body">
-                                        <a href="#">Eugene Kopyov</a> merged <span class="font-weight-semibold">Master</span> and <span class="font-weight-semibold">Dev</span> branches
-                                        <div class="text-muted font-size-sm">Dec 18, 18:36</div>
-                                    </div>
-                                </li>
-                                <li class="media">
-                                    <div class="mr-3">
-                                        <a href="#" class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon">
-                                            <i class="icon-git-pull-request"></i>
-                                        </a>
-                                    </div>
+                                         <div class="media-body">
+                                             <a href="#">Eugene Kopyov</a> merged <span class="font-weight-semibold">Master</span> and <span class="font-weight-semibold">Dev</span> branches
+                                             <div class="text-muted font-size-sm">Dec 18, 18:36</div>
+                                         </div>
+                                     </li>
+                                     <li class="media">
+                                         <div class="mr-3">
+                                             <a href="#" class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon">
+                                                 <i class="icon-git-pull-request"></i>
+                                             </a>
+                                         </div>
 
-                                    <div class="media-body">
-                                        Have Carousel ignore keyboard events
-                                        <div class="text-muted font-size-sm">Dec 12, 05:46</div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                                         <div class="media-body">
+                                             Have Carousel ignore keyboard events
+                                             <div class="text-muted font-size-sm">Dec 12, 05:46</div>
+                                         </div>
+                                     </li>
+                                 </ul>
+                             </div>
+                         </div> TODO: Восстановить -->
                     <!-- /revisions -->
                     <!-- Completeness stats -->
                     <div class="card">
                         <div class="card-header bg-transparent header-elements-inline">
-                            <span class="text-uppercase font-size-sm font-weight-semibold">Completeness stats</span>
+                            <span class="text-uppercase font-size-sm font-weight-semibold">Количество сообщений</span>
                             <div class="header-elements">
                                 <div class="list-icons">
                                     <a class="list-icons-item" data-action="collapse"></a>
@@ -520,34 +518,59 @@
                         <div class="card-body">
                             <ul class="list-unstyled mb-0">
                                 <li class="mb-3">
-                                    <div class="d-flex align-items-center mb-1">Blockers <span class="text-muted ml-auto">50%</span></div>
+                                    <div class="d-flex align-items-center mb-1">
+                                        Блокеры
+                                        <span class="text-muted ml-auto">
+                                            @{ int count = Model.Tasks.Where(x => x.Priority == Priority.Blocker).Count();
+
+                                                double percent = (count * 100) / Model.Tasks.Count();
+
+                                            }
+                                            @percent%
+                                        </span>
+                                    </div>
                                     <div class="progress" style="height: 0.125rem;">
-                                        <div class="progress-bar bg-danger" style="width: 50%">
-                                            <span class="sr-only">50% Complete</span>
+                                        <div class="progress-bar bg-danger" style="width: @percent%">
+                                            <span class="sr-only">@percent% Complete</span>
                                         </div>
                                     </div>
                                 </li>
                                 <li class="mb-3">
-                                    <div class="d-flex align-items-center mb-1">High priority <span class="text-muted ml-auto">70%</span></div>
+                                    @{ int highCount = Model.Tasks.Where(x => x.Priority == Priority.High).Count();
+
+                                        double highCountPercent = (highCount * 100) / Model.Tasks.Count();
+
+                                    }
+                                    <div class="d-flex align-items-center mb-1">Высокий приоритет <span class="text-muted ml-auto">@highCountPercent%</span></div>
                                     <div class="progress" style="height: 0.125rem;">
-                                        <div class="progress-bar bg-warning-400" style="width: 70%">
-                                            <span class="sr-only">70% Complete</span>
+                                        <div class="progress-bar bg-warning-400" style="width: @highCountPercent%">
+                                            <span class="sr-only">@highCountPercent% Complete</span>
                                         </div>
                                     </div>
                                 </li>
                                 <li class="mb-3">
-                                    <div class="d-flex align-items-center mb-1">Normal priority <span class="text-muted ml-auto">80%</span></div>
+                                    @{ int normalCount = Model.Tasks.Where(x => x.Priority == Priority.Normal).Count();
+
+                                        double normalCountPercent = (highCount * 100) / Model.Tasks.Count();
+
+                                    }
+                                    <div class="d-flex align-items-center mb-1">Нормальный приоритет<span class="text-muted ml-auto">@normalCountPercent%</span></div>
                                     <div class="progress" style="height: 0.125rem;">
-                                        <div class="progress-bar bg-success-400" style="width: 80%">
-                                            <span class="sr-only">80% Complete</span>
+                                        <div class="progress-bar bg-success-400" style="width: @normalCountPercent%">
+                                            <span class="sr-only">@normalCountPercent% Complete</span>
                                         </div>
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="d-flex align-items-center mb-1">Low priority <span class="text-muted ml-auto">60%</span></div>
+                                    @{ int lowCount = Model.Tasks.Where(x => x.Priority == Priority.Low).Count();
+
+                                        double lowCountPercent = (highCount * 100) / Model.Tasks.Count();
+
+                                    }
+                                    <div class="d-flex align-items-center mb-1">Низкий приоритет <span class="text-muted ml-auto">@lowCountPercent%</span></div>
                                     <div class="progress" style="height: 0.125rem;">
-                                        <div class="progress-bar bg-grey-400" style="width: 60%">
-                                            <span class="sr-only">60% Complete</span>
+                                        <div class="progress-bar bg-grey-400" style="width: @lowCountPercent%">
+                                            <span class="sr-only">@lowCountPercent% Complete</span>
                                         </div>
                                     </div>
                                 </li>
@@ -565,6 +588,7 @@
     <!-- /content area -->
 </div>
 <!-- /main content -->
-@await Html.PartialAsync("_CreateTaskModalPartial", @Model.CurrentUser);
-@await Html.PartialAsync("_EditTaskModalPartial", @Model.CurrentUser);
-@await Html.PartialAsync("_DeleteConfirmModalPartial");
+@await Html.PartialAsync("_CreateTaskModalPartial", @Model.CurrentUser)
+@await Html.PartialAsync("_EditTaskModalPartial", @Model.CurrentUser)
+@await Html.PartialAsync("_DeleteConfirmModalPartial")
+@await Html.PartialAsync("_FloatingButtonPartial")

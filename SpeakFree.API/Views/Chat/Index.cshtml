@@ -1,11 +1,10 @@
-﻿@page
-@model SpeakFree.API.Views.Chat.IndexModel
+﻿@model SpeakFree.API.Models.ChatViewModel
 @{
 }
 
 <!-- Line content divider -->
 <div class="card">
-    <div class="card-header header-elements-inline">
+    <!--<div class="card-header header-elements-inline">
         <h5 class="card-title">Line content divider</h5>
         <div class="header-elements">
             <div class="list-icons">
@@ -14,12 +13,10 @@
                 <a class="list-icons-item" data-action="remove"></a>
             </div>
         </div>
-    </div>
+    </div>-->
+    <input type="text" hidden id="userInput" value="@Model.User.Name"/>
     <div class="card-body">
-        <ul class="media-list media-chat media-chat-scrollable mb-3">
-            <li class="media content-divider justify-content-center text-muted mx-0">
-                <span class="px-2">Monday, Feb 10</span>
-            </li>
+        <ul class="media-list media-chat media-chat-scrollable mb-3" id="messagesList">
             <li class="media">
                 <div class="mr-3">
                     <a href="~/lib/limitless/global_assets/images/placeholders/placeholder.jpg">
@@ -42,51 +39,121 @@
                     </a>
                 </div>
             </li>
-            <li class="media content-divider justify-content-center text-muted mx-0">
-                <span class="text-muted px-2">Today</span>
-            </li>
-            <li class="media media-chat-item-reverse">
-                <div class="media-body">
-                    <div class="media-chat-item">Satisfactorily strenuously while sleazily dear frustratingly insect menially some shook far sardonic badger telepathic much jeepers immature much hey.</div>
-                    <div class="font-size-sm text-muted mt-2">2 hours ago <a href="#"><i class="icon-pin-alt ml-2 text-muted"></i></a></div>
-                </div>
-                <div class="ml-3">
-                    <a href="~/lib/limitless/global_assets/images/placeholders/placeholder.jpg">
-                        <img src="~/lib/limitless/global_assets/images/placeholders/placeholder.jpg" class="rounded-circle" width="40" height="40" alt="">
-                    </a>
-                </div>
-            </li>
-            <li class="media">
-                <div class="mr-3">
-                    <a href="~/lib/limitless/global_assets/images/placeholders/placeholder.jpg">
-                        <img src="~/lib/limitless/global_assets/images/placeholders/placeholder.jpg" class="rounded-circle" width="40" height="40" alt="">
-                    </a>
-                </div>
-                <div class="media-body">
-                    <div class="media-chat-item">Grunted smirked and grew less but rewound much despite and impressive via alongside out and gosh easy manatee dear ineffective yikes.</div>
-                    <div class="font-size-sm text-muted mt-2">13 minutes ago <a href="#"><i class="icon-pin-alt ml-2 text-muted"></i></a></div>
-                </div>
-            </li>
-            <li class="media media-chat-item-reverse">
-                <div class="media-body">
-                    <div class="media-chat-item"><i class="icon-menu"></i></div>
-                </div>
-                <div class="ml-3">
-                    <a href="~/lib/limitless/global_assets/images/placeholders/placeholder.jpg">
-                        <img src="~/lib/limitless/global_assets/images/placeholders/placeholder.jpg" class="rounded-circle" width="40" height="40" alt="">
-                    </a>
-                </div>
-            </li>
         </ul>
-        <textarea name="enter-message" class="form-control mb-3" rows="3" cols="1" placeholder="Enter your message..."></textarea>
+        <textarea name="enter-message" class="form-control mb-3" rows="3" cols="1" placeholder="Enter your message..." id="messageInput"></textarea>
         <div class="d-flex align-items-center">
             <div class="list-icons list-icons-extended">
                 <a href="#" class="list-icons-item" data-popup="tooltip" data-container="body" title="Send photo"><i class="icon-file-picture"></i></a>
                 <a href="#" class="list-icons-item" data-popup="tooltip" data-container="body" title="Send video"><i class="icon-file-video"></i></a>
                 <a href="#" class="list-icons-item" data-popup="tooltip" data-container="body" title="Send file"><i class="icon-file-plus"></i></a>
             </div>
-            <button type="button" class="btn bg-teal-400 btn-labeled btn-labeled-right ml-auto"><b><i class="icon-paperplane"></i></b> Send</button>
+            <button type="button" class="btn bg-teal-400 btn-labeled btn-labeled-right ml-auto" id="sendButton"><b><i class="icon-paperplane"></i></b> Send</button>
         </div>
     </div>
 </div>
 <!-- /line content divider -->
+<!--<div class="container">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            User..........<input type="text" id="userInput" />
+            <br />
+            Message...<input type="text" id="messageInput" />
+            <input type="button" id="sendButton" value="Send Message" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">&nbsp;</div>
+        <div class="col-6">
+            <ul id="messagesList"></ul>
+        </div>
+    </div>
+</div>-->
+<script>
+    let hubUrl = 'http://localhost:44324/chatter';
+    const hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl(hubUrl, { transport: signalR.HttpTransportType.WebSockets | signalR.HttpTransportType.LongPolling })
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
+    let userName = '';
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chatter").build();
+
+    //Disable send button until connection is established
+    document.getElementById("sendButton").disabled = true;
+
+    /*<li class="media">
+        <div class="mr-3">
+            <a href="~/lib/limitless/global_assets/images/placeholders/placeholder.jpg">
+                <img src="~/lib/limitless/global_assets/images/placeholders/placeholder.jpg" class="rounded-circle" width="40" height="40" alt="">
+                    </a>
+                </div>
+            <div class="media-body">
+                <div class="media-chat-item">Crud reran and while much withdrew ardent much crab hugely met dizzily that more jeez gent equivalent unsafely far one hesitant so therefore.</div>
+                <div class="font-size-sm text-muted mt-2">Tue, 10:28 am <a href="#"><i class="icon-pin-alt ml-2 text-muted"></i></a></div>
+            </div>
+            </li>*/
+
+    connection.on("ReceiveMessage", function (user, message) {
+        var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        var encodedMsg = user + " says " + msg;
+        var li = document.createElement("li");
+        li.classList.add('media');
+        var divContent = document.createElement("div");
+        $(divContent).attr('class', 'mr-3');
+        divContent.textContent = user;
+
+        var contentLink = document.createElement("a");
+        $(contentLink).attr('href', '/lib/limitless/global_assets/images/placeholders/placeholder.jpg');
+        var image = document.createElement("img");
+        $(image).attr('src', '/lib/limitless/global_assets/images/placeholders/placeholder.jpg');
+        $(image).attr('class', 'rounded-circle');
+        $(image).attr('width', '40');
+        $(image).attr('height', '40');
+
+
+        var mediaBody = document.createElement("div");
+        $(mediaBody).attr('class', 'media-body');
+
+        var mediaChatItem = document.createElement("div");
+        $(mediaChatItem).attr('class', 'media-chat-item');
+
+        var mediaTime = document.createElement("div");
+        $(mediaTime).attr('class', 'font-size-sm text-muted mt-2');
+
+        contentLink.appendChild(image);
+        divContent.appendChild(contentLink);
+
+        mediaChatItem.textContent = msg;
+        mediaBody.appendChild(mediaChatItem);
+
+        mediaTime.textContent = '09.06.2019';
+        mediaBody.appendChild(mediaTime);
+        li.appendChild(divContent);
+        li.appendChild(mediaBody);
+
+        document.getElementById("messagesList").appendChild(li);
+    });
+
+    connection.start().then(function () {
+        document.getElementById("sendButton").disabled = false;
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    document.getElementById("sendButton").addEventListener("click", function (event) {
+        var user = document.getElementById("userInput").value;
+        var message = document.getElementById("messageInput").value;
+        connection.invoke("SendMessage", user, message).catch(function (err) {
+            return console.error(err.toString());
+        });
+        event.preventDefault();
+    });
+</script>
