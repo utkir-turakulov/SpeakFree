@@ -522,9 +522,13 @@
                                         Блокеры
                                         <span class="text-muted ml-auto">
                                             @{ int count = Model.Tasks.Where(x => x.Priority == Priority.Blocker).Count();
+                                                double percent = 0;
 
-                                                double percent = (count * 100) / Model.Tasks.Count();
 
+                                                if (Model.Tasks.Count() > 0)
+                                                {
+                                                    percent = (count * 100) / Model.Tasks.Count();
+                                                }
                                             }
                                             @percent%
                                         </span>
@@ -538,7 +542,13 @@
                                 <li class="mb-3">
                                     @{ int highCount = Model.Tasks.Where(x => x.Priority == Priority.High).Count();
 
-                                        double highCountPercent = (highCount * 100) / Model.Tasks.Count();
+                                        double highCountPercent = 0;
+
+
+                                        if (Model.Tasks.Count() > 0)
+                                        {
+                                            highCountPercent = (highCount * 100) / Model.Tasks.Count();
+                                        }
 
                                     }
                                     <div class="d-flex align-items-center mb-1">Высокий приоритет <span class="text-muted ml-auto">@highCountPercent%</span></div>
@@ -551,7 +561,12 @@
                                 <li class="mb-3">
                                     @{ int normalCount = Model.Tasks.Where(x => x.Priority == Priority.Normal).Count();
 
-                                        double normalCountPercent = (highCount * 100) / Model.Tasks.Count();
+                                        double normalCountPercent = 0;
+
+                                        if (Model.Tasks.Count()>0)
+                                        {
+                                            normalCountPercent = (highCount * 100) / Model.Tasks.Count();
+                                        }
 
                                     }
                                     <div class="d-flex align-items-center mb-1">Нормальный приоритет<span class="text-muted ml-auto">@normalCountPercent%</span></div>
@@ -564,8 +579,12 @@
                                 <li>
                                     @{ int lowCount = Model.Tasks.Where(x => x.Priority == Priority.Low).Count();
 
-                                        double lowCountPercent = (highCount * 100) / Model.Tasks.Count();
+                                        double lowCountPercent = 0;
 
+                                        if (Model.Tasks.Count()> 0)
+                                        {
+                                            lowCountPercent = (highCount * 100) / Model.Tasks.Count();
+                                        }
                                     }
                                     <div class="d-flex align-items-center mb-1">Низкий приоритет <span class="text-muted ml-auto">@lowCountPercent%</span></div>
                                     <div class="progress" style="height: 0.125rem;">
