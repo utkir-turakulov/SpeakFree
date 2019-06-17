@@ -115,7 +115,7 @@ namespace SpeakFree.API
 				{
 					routes.MapRoute(
 					 name: "default",
-					 template: "{controller=Home}/{action=Index}/{id?}");
+					 template: "{controller=TaskBoard}/{action=GetTasks}/{id?}");
 				});
 		}
     }
