@@ -99,7 +99,11 @@ namespace SpeakFree.API.Controllers
                 {
                     ModelState.AddModelError("", "Неверное имя пользователя");
                 }
-            }
+			}
+			else
+			{
+				return View("Register");
+			}
 
 			return View(model);
         }
@@ -147,7 +151,7 @@ namespace SpeakFree.API.Controllers
 		/// <param name="model"></param>
 		/// <returns></returns>
 		[HttpPost("Register")]
-		public async Task<IActionResult> Register([FromBody] RegistrationDto model)
+		public async Task<IActionResult> Register( RegistrationDto model)
 		{
 			if (ModelState.IsValid)
 			{
@@ -164,7 +168,11 @@ namespace SpeakFree.API.Controllers
 
 				if (result.Succeeded)
 				{
-					return Json(new { Result = "Registered" });
+					if (string.IsNullOrEmpty(model.ReturnUrl))
+					{
+						return RedirectToAction("GetTasks", "TaskBoard");
+					}
+					return RedirectToAction(model.ReturnUrl.Split("/")[1], model.ReturnUrl.Split("/")[0]);
 				}
 				else
 				{
@@ -175,9 +183,18 @@ namespace SpeakFree.API.Controllers
 				}
 			}
 
-			return Json(new { Result = "Failed" });
+			return View("Register");
 		}
 
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		[HttpGet("Register")]
+		public IActionResult Register()
+		{
+			return View();
+		}
 
 		[HttpPost("Token")]
 		public async Task<IActionResult> Token([FromBody]LoginDto model)
