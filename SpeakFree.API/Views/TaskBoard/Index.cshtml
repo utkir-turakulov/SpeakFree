@@ -522,15 +522,13 @@
                                         Блокеры
                                         <span class="text-muted ml-auto">
                                             @{ int count = Model.Tasks.Where(x => x.Priority == Priority.Blocker).Count();
-
                                                 double percent = 0;
+
 
                                                 if (Model.Tasks.Count() > 0)
                                                 {
                                                     percent = (count * 100) / Model.Tasks.Count();
                                                 }
-
-
                                             }
                                             @percent%
                                         </span>
@@ -545,6 +543,12 @@
                                     @{ int highCount = Model.Tasks.Where(x => x.Priority == Priority.High).Count();
 
                                         double highCountPercent = 0;
+
+
+                                        if (Model.Tasks.Count() > 0)
+                                        {
+                                            highCountPercent = (highCount * 100) / Model.Tasks.Count();
+                                        }
 
                                         if (Model.Tasks.Count() > 0)
                                         {
@@ -563,6 +567,11 @@
 
                                         double normalCountPercent = 0;
 
+                                        if (Model.Tasks.Count()>0)
+                                        {
+                                            normalCountPercent = (highCount * 100) / Model.Tasks.Count();
+                                        }
+
                                         if (Model.Tasks.Count() > 0)
                                         {
                                             normalCountPercent = (highCount * 100) / Model.Tasks.Count();
@@ -580,7 +589,7 @@
 
                                         double lowCountPercent = 0;
 
-                                        if (Model.Tasks.Count() > 0)
+                                        if (Model.Tasks.Count()> 0)
                                         {
                                             lowCountPercent = (highCount * 100) / Model.Tasks.Count();
                                         }
