@@ -7,11 +7,16 @@
         <li class="nav-item"><a asp-controller="TaskBoard" asp-action="Index" class="nav-link"><i class="icon-task"></i> <span>Доска сообщений</span></a></li>
         <li class="nav-item"><a asp-controller="Chat" asp-action="GetChat" class="nav-link"><i class="icon-bubbles3"></i> <span>Чат</span></a></li>
 
-        <li class="nav-item nav-item-divider"></li>
 
-        <li class="nav-item-header"><div class="text-uppercase font-size-sm line-height-xs">Администрирование</div> <i class="icon-menu" title="Администрирование"></i></li>
-        <li class="nav-item"><a asp-controller="Users" asp-action="Index" class="nav-link"><i class="icon-users"></i> <span>Пользователи</span></a></li>
-        <li class="nav-item"><a asp-controller="Settings" asp-action="Index" class="nav-link"><i class="icon-wrench"></i> <span>Настройки</span></a></li>
+
+        @if (User.IsInRole("Admin"))
+        {
+            <li class="nav-item nav-item-divider"></li>
+            <li class="nav-item-header"><div class="text-uppercase font-size-sm line-height-xs">Администрирование</div> <i class="icon-menu" title="Администрирование"></i></li>
+            <li class="nav-item"><a asp-controller="Users" asp-action="Index" class="nav-link"><i class="icon-users"></i> <span>Пользователи</span></a></li>
+            <li class="nav-item"><a asp-controller="Settings" asp-action="Index" class="nav-link"><i class="icon-wrench"></i> <span>Настройки</span></a></li>
+        }
+
         <!-- /main -->
         <!-- Layout -->
     </ul>

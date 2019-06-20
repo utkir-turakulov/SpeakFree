@@ -136,12 +136,12 @@ namespace SpeakFree.API.TagHelpers
 		{
 			if (message.UserId?.ToString() == model.CurrentUser.Id)
 			{
-				return new HtmlString(string.Format(@"<a href='#' class='dropdown-item'><i class='icon-alarm-add'></i> Check in</a>
+				return new HtmlString(string.Format(@"<!--<a href='#' class='dropdown-item'><i class='icon-alarm-add'></i> Check in</a>
 													<a href='#' class='dropdown-item'><i class='icon-attachment'></i> Attach screenshot</a>
 													<a href = '#' class='dropdown-item'><i class='icon-rotate-ccw2'></i> Reassign</a>
-													<div class='dropdown-divider'></div>
-													<a href='#' class='dropdown-item' data-toggle='modal' data-target='#edit_message_modal' onclick='fillData({0})'><i class='icon-pencil7' ></i> Edit task</a>
-													<a href='#' class='dropdown-item btn bg-danger' data-toggle='modal' data-target='#delete-message-modal' onclick='fillOnDelete({0})'><i class='icon-cross2'></i> Remove</a>", message.Id));
+													<div class='dropdown-divider'></div>-->
+													<a href='#' class='dropdown-item' data-toggle='modal' data-target='#edit_message_modal' onclick='fillData({0})'><i class='icon-pencil7' ></i> Изменить</a>
+													<a href='#' class='dropdown-item btn bg-danger' data-toggle='modal' data-target='#delete-message-modal' onclick='fillOnDelete({0})'><i class='icon-cross2'></i> Удалить</a>", message.Id));
 			}
 			else
 			{
