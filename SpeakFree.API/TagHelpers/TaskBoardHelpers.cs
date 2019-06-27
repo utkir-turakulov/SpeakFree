@@ -12,10 +12,8 @@ using System.Threading.Tasks;
 
 namespace SpeakFree.API.TagHelpers
 {
-	
 	public static class TaskBoardHelpers
 	{
-
 		/// <summary>
 		/// Создание списка карточек
 		/// </summary>
@@ -71,8 +69,9 @@ namespace SpeakFree.API.TagHelpers
 											<ul class='list list-unstyled mb-0 mt-3 mt-sm-0 ml-auto'>
 												<li><span class='text-muted'>{3}</span></li>
 												<li class='dropdown'>
-							                		Приоритет: &nbsp; 
-													<a href='#' class='badge bg-success-400 align-top dropdown-toggle' data-toggle='dropdown'>Normal</a>
+														{4}
+							                		<!--Приоритет: &nbsp; 													
+													<a href='#' class='badge bg-success-400 align-top dropdown-toggle' data-toggle='dropdown'>Normal</a>-->
 													<div class='dropdown-menu dropdown-menu-right'>
 														<a href='#' class='dropdown-item'><span class='badge badge-mark mr-2 border-danger'></span> Blocker</a>
 														<a href='#' class='dropdown-item'><span class='badge badge-mark mr-2 border-warning-400'></span> High priority</a>
@@ -80,7 +79,7 @@ namespace SpeakFree.API.TagHelpers
 														<a href='#' class='dropdown-item'><span class='badge badge-mark mr-2 border-grey-300'></span> Low priority</a>
 													</div>
 												</li>
-												<li><a href='#'>{4}</a></li>
+												<li><a href='#'>{5}</a></li>
 											</ul>
 										</div>
 									</div>
@@ -107,7 +106,7 @@ namespace SpeakFree.API.TagHelpers
 												<a href='#' class='text-default dropdown-toggle' data-toggle='dropdown'><i class='icon-menu7'></i></a>
 
 												<div class='dropdown-menu dropdown-menu-right'>
-													{5}
+													{6}
 												</div>
 											</li>
 										</ul>
@@ -117,6 +116,7 @@ namespace SpeakFree.API.TagHelpers
 							messages.ToList()[i].Id,
 							messages.ToList()[i].Title,
 							messages.ToList()[i].Text,
+							AddPriority(messages.ToList()[i], model),
 							messages.ToList()[i].CreatedAt,
 							author,
 							AddActions(messages.ToList()[i],model)
@@ -131,7 +131,12 @@ namespace SpeakFree.API.TagHelpers
 			return new HtmlString(rows.ToString());
 		}
 
-
+		/// <summary>
+		/// Определяет действия над сообщениями 
+		/// </summary>
+		/// <param name="message">Сообщение</param>
+		/// <param name="model">Модель данных</param>
+		/// <returns></returns>
 		private static HtmlString AddActions(Message message, TaskViewModel model)
 		{
 			if (message.UserId?.ToString() == model.CurrentUser.Id)
@@ -148,6 +153,36 @@ namespace SpeakFree.API.TagHelpers
 				return new HtmlString("<a href = '#' class='dropdown-item'>У вас нет прав на управление данным сообщением</a>");
 			}
 			return new HtmlString(@"<a href='#' class='dropdown-item'></a>");
+		}
+
+		/// <summary>
+		/// Определяет приоритет сообщения
+		/// Цвет и текст
+		/// </summary>
+		/// <param name="message">Сообщение</param>
+		/// <param name="model">Модель данных</param>
+		/// <returns></returns>
+		private static HtmlString AddPriority(Message message, TaskViewModel model)
+		{
+			switch (message.Priority)
+			{
+				case DAL.Enums.Priority.Blocker:
+					return new HtmlString(@"Приоритет: &nbsp;<a href='#' class='badge badge-danger align-top dropdown-toggle' data-toggle='dropdown'>Blocker</a>");
+
+				case DAL.Enums.Priority.High:
+					return new HtmlString(@"Приоритет: &nbsp; <a href='#' class='badge bg-warning-400 align-top dropdown-toggle' data-toggle='dropdown'>High</a>");
+
+				case DAL.Enums.Priority.Low:
+					return new HtmlString(@"Приоритет: &nbsp; <a href='#' class='badge bg-grey-300 align-top dropdown-toggle' data-toggle='dropdown'>Low</a>");
+
+				case DAL.Enums.Priority.Normal:
+					return new HtmlString(@"Приоритет: &nbsp; <a href='#' class='badge bg-success-400 align-top dropdown-toggle' data-toggle='dropdown'>Normal</a>");
+
+				default:
+					break;
+			}
+
+			return null;
 		}
 	}
 }

@@ -370,5 +370,43 @@ namespace SpeakFree.API.Controllers
 
 			return View("Index", model);
 		}
+
+
+		[HttpPost("Search")]
+		public async Task<IActionResult> Search(string text)
+		{
+			int pageNumber = 1;
+			var messageSourse = (await _messageOperationService.Find(x => x.Title.Contains(text))).ToList();
+
+			var count = messageSourse.Count();
+			var result = messageSourse.Skip((pageNumber - 1) * PAGE_SIZE).Take(PAGE_SIZE).ToList();
+			var user = await _userManager.FindByEmailAsync(User.Identity.Name);
+
+			for (int i = 0; i < result.Count; i++)
+			{
+				if (result[i].UserId != null)
+				{
+					if (result[i].User == null)
+					{
+						result[i].User = await _userManager.FindByIdAsync(result[i].UserId.ToString());
+					}
+				}
+			}
+
+			PageViewModel pageViewModel = new PageViewModel(count, pageNumber, PAGE_SIZE);
+			TaskViewModel model = new TaskViewModel
+			{
+				Tasks = result,
+				CurrentUser = user,
+				PageViewModel = pageViewModel
+			};
+
+			/*if (!string.IsNullOrEmpty(returnUrl))
+			{
+				return RedirectToAction(returnUrl.Split("/")[1], returnUrl.Split("/")[0], model);
+			}*/
+
+			return View("Index", model);
+		}
 	}
 }
