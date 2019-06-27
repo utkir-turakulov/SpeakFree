@@ -218,9 +218,9 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form action="#">
+                            <form method="post" asp-action="Search" asp-controller="TaskBoard">
                                 <div class="form-group-feedback form-group-feedback-right">
-                                    <input type="search" class="form-control" placeholder="Заголовок сообщения ... ">
+                                    <input type="search" class="form-control" name="text" placeholder="Заголовок сообщения ... ">
                                     <div class="form-control-feedback">
                                         <i class="icon-search4 font-size-base text-muted"></i>
                                     </div>

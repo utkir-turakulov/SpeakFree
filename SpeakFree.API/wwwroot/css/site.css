@@ -174,3 +174,7 @@ ul.fancytree-container {
     width: 600px;
     overflow: scroll;
 }
+
+.card-content{
+    min-height: 300px;
+}

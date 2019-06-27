@@ -32,7 +32,7 @@ namespace SpeakFree.API.TagHelpers
 			StringBuilder rows = new StringBuilder();
 
 			cardRows = new StringBuilder();
-			cardRows.Append("<div class='row'>");
+			cardRows.Append("<div class='row card-content'>");
 
 			for (int i = 0; i < messages.Count(); i++)
 			{
