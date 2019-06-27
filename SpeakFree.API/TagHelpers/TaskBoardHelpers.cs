@@ -32,7 +32,7 @@ namespace SpeakFree.API.TagHelpers
 			StringBuilder rows = new StringBuilder();
 
 			cardRows = new StringBuilder();
-			cardRows.Append("<div class='row'>");
+			cardRows.Append("<div class='row card-content'>");
 
 			for (int i = 0; i < messages.Count(); i++)
 			{
@@ -53,10 +53,10 @@ namespace SpeakFree.API.TagHelpers
 									<div class='card-body'>
 										<div class='d-sm-flex align-item-sm-center flex-sm-nowrap'>
 											<div>
-												<h6><a href='task_manager_detailed.html'>#{0}. {1}</a></h6>
+												<h6><a href='#'>#{0}. {1}</a></h6>
 												<p class='mb-3'>{2}</p>
 
-							                	<a href='#'>
+							                	<!--<a href='#'>
 							                		<img src='../../../../global_assets/images/placeholders/placeholder.jpg' class='rounded-circle' width='36' height='36' alt=''>
 						                		</a>
 							                	<a href='#'>
@@ -65,13 +65,13 @@ namespace SpeakFree.API.TagHelpers
 							                	<a href='#'>
 							                		<img src='../../../../global_assets/images/placeholders/placeholder.jpg' class='rounded-circle' width='36' height='36' alt=''>
 						                		</a>
-							                	<a href='#' class='btn btn-icon bg-transparent border-slate-300 text-slate rounded-round border-dashed'><i class='icon-plus22'></i></a>
+							                	<a href='#' class='btn btn-icon bg-transparent border-slate-300 text-slate rounded-round border-dashed'><i class='icon-plus22'></i></a>-->
 											</div>
 
 											<ul class='list list-unstyled mb-0 mt-3 mt-sm-0 ml-auto'>
 												<li><span class='text-muted'>{3}</span></li>
 												<li class='dropdown'>
-							                		Priority: &nbsp; 
+							                		Приоритет: &nbsp; 
 													<a href='#' class='badge bg-success-400 align-top dropdown-toggle' data-toggle='dropdown'>Normal</a>
 													<div class='dropdown-menu dropdown-menu-right'>
 														<a href='#' class='dropdown-item'><span class='badge badge-mark mr-2 border-danger'></span> Blocker</a>
@@ -86,10 +86,10 @@ namespace SpeakFree.API.TagHelpers
 									</div>
 
 									<div class='card-footer d-sm-flex justify-content-sm-between align-items-sm-center'>
-										<span>Due: <span class='font-weight-semibold'>23 hours</span></span>
+										<!--<span>Due: <span class='font-weight-semibold'>23 hours</span></span>-->
 
 										<ul class='list-inline mb-0 mt-2 mt-sm-0'>
-											<li class='list-inline-item dropdown'>
+										<!--<li class='list-inline-item dropdown'>
 												<a href='#' class='text-default dropdown-toggle' data-toggle='dropdown'>Open</a>
 
 												<div class='dropdown-menu dropdown-menu-right'>
@@ -102,7 +102,7 @@ namespace SpeakFree.API.TagHelpers
 													<a href='#' class='dropdown-item'>Invalid</a>
 													<a href='#' class='dropdown-item'>Wontfix</a>
 												</div>
-											</li>
+											</li>-->
 											<li class='list-inline-item dropdown'>
 												<a href='#' class='text-default dropdown-toggle' data-toggle='dropdown'><i class='icon-menu7'></i></a>
 
@@ -136,12 +136,12 @@ namespace SpeakFree.API.TagHelpers
 		{
 			if (message.UserId?.ToString() == model.CurrentUser.Id)
 			{
-				return new HtmlString(string.Format(@"<a href='#' class='dropdown-item'><i class='icon-alarm-add'></i> Check in</a>
+				return new HtmlString(string.Format(@"<!--<a href='#' class='dropdown-item'><i class='icon-alarm-add'></i> Check in</a>
 													<a href='#' class='dropdown-item'><i class='icon-attachment'></i> Attach screenshot</a>
 													<a href = '#' class='dropdown-item'><i class='icon-rotate-ccw2'></i> Reassign</a>
-													<div class='dropdown-divider'></div>
-													<a href='#' class='dropdown-item' data-toggle='modal' data-target='#edit_message_modal' onclick='fillData({0})'><i class='icon-pencil7' ></i> Edit task</a>
-													<a href='#' class='dropdown-item btn bg-danger' data-toggle='modal' data-target='#delete-message-modal' onclick='fillOnDelete({0})'><i class='icon-cross2'></i> Remove</a>", message.Id));
+													<div class='dropdown-divider'></div>-->
+													<a href='#' class='dropdown-item' data-toggle='modal' data-target='#edit_message_modal' onclick='fillData({0})'><i class='icon-pencil7' ></i> Изменить</a>
+													<a href='#' class='dropdown-item btn bg-danger' data-toggle='modal' data-target='#delete-message-modal' onclick='fillOnDelete({0})'><i class='icon-cross2'></i> Удалить</a>", message.Id));
 			}
 			else
 			{

@@ -20,6 +20,9 @@ using SpeakFree.BLL.Dto.Message;
 
 namespace SpeakFree.API.Controllers
 {
+	/// <summary>
+	/// Доска сообщений
+	/// </summary>
     [Route("/[controller]")]
     public class TaskBoardController : Controller
     {
@@ -45,6 +48,7 @@ namespace SpeakFree.API.Controllers
 		// GET: /<controller>/
 		[HttpGet("GetTasks")]
 		[Route("GetTasks")]
+		[Route("/")]
 		[Authorize]
         public async Task<IActionResult> Index(int page = 1)
         {

@@ -34,5 +34,7 @@ namespace SpeakFree.BLL.Dto.Account
 		/// </summary>
 		public string Password { get; set; }
 
+		public string ReturnUrl { get; set; }
+
     }
 }

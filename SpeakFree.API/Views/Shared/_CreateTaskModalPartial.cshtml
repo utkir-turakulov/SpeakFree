@@ -3,11 +3,7 @@
 @model User
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+
 <!-- Horizontal form modal -->
 <div id="modal_form_horizontal" class="modal fade" tabindex="-1">
     <div class="modal-dialog modal-lg">
@@ -50,7 +46,7 @@
                         <div class="col-sm-3">
                             <div class="form-check form-check-switchery">
                                 <label class="form-check-label">
-                                    <input name="IsAnonymous" value="true" id="is_anonymous_check" type="checkbox" class="form-check-input-switchery" data-fouc onclick="clicked()" checked>
+                                    <input name="IsAnonymous" value="false" id="is_anonymous_check" type="checkbox" class="form-check-input-switchery" data-fouc onclick="clicked()" >
                                     Отправить анонимно
                                 </label>
                             </div>
@@ -73,8 +69,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn bg-primary">Submit form</button>
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Закрыть</button>
+                        <button type="submit" class="btn bg-primary">Отправить</button>
                     </div>
                 </div>
             </form>

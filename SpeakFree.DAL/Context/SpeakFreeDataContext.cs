@@ -13,7 +13,7 @@
 		public SpeakFreeDataContext(DbContextOptions<SpeakFreeDataContext> options)
 	        :base(options)
         {
-          //  this.Database.EnsureCreated();
+          
         }
     }
 }
